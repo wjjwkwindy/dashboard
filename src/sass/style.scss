@@ -1,0 +1,19 @@
+*{
+  box-sizing: border-box;
+}
+html,body{
+  height: 100%;
+}
+.wrapper{
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  height: 100%;
+}
+.sidebar{
+  width: 160px;
+  height: 100%;
+  
+}
+.main-panel{
+  background-color: #fbfbfb;
+}
