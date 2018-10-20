@@ -12,7 +12,7 @@ module.exports = {
   // **出口文件**
   output: {
     filename: 'bundle.[hash:4].js', // 打包后的文件名称
-    path: path.resolve('dist') // 打包后的目录，必须是绝对路径
+    path: path.resolve('dist'), // 打包后的目录，必须是绝对路径
   },
 
   // *处理对应模块
@@ -22,13 +22,13 @@ module.exports = {
         test: /\.css/,
         use:normalizeCss.extract({
             use: ['css-loader'], 
-            publicPath: '../'
+            publicPath: '../',
           })
       },
       {
         test: /\.scss/,
         use:styleScss.extract({
-            use: ['css-loader','postcss-loader']  // postcss-loader 添加 css3 前缀
+            use: ['css-loader','sass-loader','postcss-loader'],  // postcss-loader 添加 css3 前缀
           })
       },
       // 处理css中的图片地址
@@ -39,7 +39,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192, // 小于 8k 的图片自动转成 base64 格式，并且不会存在实体图片
-              outputPath: 'images/' // 图片打包后存放的目录
+              outputPath: 'images/', // 图片打包后存放的目录
             }
           }
         ]
@@ -47,19 +47,19 @@ module.exports = {
       // 处理页面 img 引用图片的地址
       {
         test: /\.(htm|html)$/,
-        use: 'html-withimg-loader'
+        use: 'html-withimg-loader',
       },
       // 处理引用字体图片和svg图片
       {
         test: /\.(eot|ttf|woff|svg)$/,
-        use: 'file-loader'
+        use: 'file-loader',
       },
       // 处理es6代码
       {
         test: /\.js$/,
         use: 'babel-loader',
         include: /src/, // 只转化 src 目录下的js
-        exclude: /node_modules/ // 排除掉 node_modules ，优化打包速度
+        exclude: /node_modules/, // 排除掉 node_modules ，优化打包速度
       }
     ]
   },
@@ -74,7 +74,7 @@ module.exports = {
     //new ExtractTextWebpackPlugin('css/style.css'),// 拆分后会把 css 文件放到 dist 目录下的 css/style.css
     styleScss,
     normalizeCss,
-    new CleanWebpackPlugin('dist') // 打包前先清空
+    new CleanWebpackPlugin('dist'), // 打包前先清空
   ],
 
   // **开发服务器配置**
@@ -83,9 +83,13 @@ module.exports = {
     host: 'localhost',
     port: 3000,
     open: true,
-    hot: false
+    hot: false,
+    overlay:true,
   },
 
   // **模式配置**
-  mode: 'development'
+  mode: 'development',
+
+  // **开启调试**
+  devtool: "source-map",
 };
