@@ -1,5 +1,7 @@
 @import 'base_color';
 $left-sidebar-width: 178px;
+$font-pingfang: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica,
+  Arial, sans-serif;
 %nav-active {
   box-shadow: 0 0 50px #eaeaea;
   border-radius: 3px;
@@ -20,6 +22,7 @@ body {
   height: 100%;
 }
 
+// 左边栏
 .sidebar {
   width: $left-sidebar-width;
   height: 100%;
@@ -71,31 +74,143 @@ body {
   }
 }
 
+// 主栏
 .main-panel {
   background-color: $bgColor;
-  .panel-container{
+  .panel-container {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content:center;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: 75px 85px 0;
   }
 }
-.first-area{
+// 第一栏
+.first-area {
+  max-height: 210px;
   display: flex;
   flex-direction: row;
-  .item{
+  .item {
     height: 210px;
-    // width: 100px;
     margin-right: 45px;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 0 20px #f8f8f8;
   }
-  .item-time{
+  .item:last-child {
+    margin-right: 0;
+  }
+  // 时间卡片
+  .item-time {
+    flex-grow:3;
     padding: 19px 49px;
-    h2{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    h2 {
+      margin-bottom: 10px;
+      color: #b9b9b9;
+      font-family: $font-pingfang;
+      font-size: 20px;
+      font-weight: normal;
+    }
+    h3 {
       font-family: $font-dosis;
+      font-size: 30px;
+      font-weight: normal;
+      letter-spacing: 3px;
+      span {
+        margin-left: 15px;
+        color: #c8c8c8;
+        font-size: 25px;
+      }
+    }
+  }
+  // 汇率卡片
+  .item-exchange {
+    flex-grow: 5;
+    min-height: 100%;
+    margin-right: 45px;
+    display: flex;
+    justify-content: space-between;
+    .item-exchange_money {
+      width: 135px;
+      flex:none;
+      padding: 28px 22px;
+      margin-right: 15px;
+      h2 {
+        font-family: $font-pingfang;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+      .percent {
+        margin-bottom: 10px;
+        svg {
+          width: 15px;
+          vertical-align: middle;
+        }
+        span {
+          font-family: $font-dosis;
+          font-size: 16px;
+          font-weight: normal;
+        }
+      }
+      .data-up {
+        color: $dataUpColor;
+      }
+      .data-down {
+        color: $dataDownColor;
+      }
+      .arrow-down {
+        transform: rotate(180deg);
+      }
+
+      .exchange {
+        text-align: center;
+        color: #787878;
+        font-family: $font-dosis;
+        font-size: 23px;
+        letter-spacing: 1px;
+        p {
+          margin: 0 0 20px 0;
+        }
+        .sync-icon {
+          width: 20px;
+          margin: 0 auto 20px;
+        }
+        .rmb {
+          color: #2484f1;
+          font-size: 17px;
+          span {
+            margin-left: 8px;
+            font-size: 23px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .item-exchange_money:last-child {
+      margin-right: 0;
+    }
+  }
+  // 进度卡片
+  .item-progress {
+    flex-grow:2;
+    padding: 15px 10px;
+    .item-progress_container {
+      vertical-align: middle;
+    }
+    p {
+      margin: 0;
+    }
+    .progress-container:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      width: 70%;
+      height: 5px;
     }
   }
 }
