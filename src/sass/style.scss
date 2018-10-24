@@ -78,20 +78,20 @@ body {
 .main-panel {
   background-color: $bgColor;
   .panel-container {
+    min-width: 1288px;
+    max-width: 1500px;
+    margin: 50px auto;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     justify-content: center;
-    margin: 75px 85px 0;
   }
 }
 // 第一栏
 .first-area {
-  max-height: 210px;
+  min-height: 210px;
   display: flex;
-  flex-direction: row;
   .item {
-    height: 210px;
     margin-right: 45px;
     border-radius: 10px;
     background-color: #fff;
@@ -102,91 +102,109 @@ body {
   }
   // 时间卡片
   .item-time {
-    flex-grow:3;
-    padding: 19px 49px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    h2 {
-      margin-bottom: 10px;
-      color: #b9b9b9;
-      font-family: $font-pingfang;
-      font-size: 20px;
-      font-weight: normal;
-    }
-    h3 {
-      font-family: $font-dosis;
-      font-size: 30px;
-      font-weight: normal;
-      letter-spacing: 3px;
-      span {
-        margin-left: 15px;
-        color: #c8c8c8;
-        font-size: 25px;
+    width: 30%;
+    max-width: 439px;
+    position: relative;
+    .time-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      .item-time_data:first-child {
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-bottom: 10px;
+        color: #b9b9b9;
+        font-family: $font-pingfang;
+        font-size: 20px;
+        font-weight: normal;
+      }
+      h3 {
+        font-family: $font-dosis;
+        font-size: 30px;
+        font-weight: normal;
+        letter-spacing: 3px;
+        text-transform: capitalize;
+        span {
+          margin-left: 15px;
+          color: #c8c8c8;
+          font-size: 25px;
+        }
       }
     }
   }
   // 汇率卡片
   .item-exchange {
-    flex-grow: 5;
-    min-height: 100%;
+    width: 50%;
     margin-right: 45px;
     display: flex;
     justify-content: space-between;
+    user-select: none;
     .item-exchange_money {
       width: 135px;
-      flex:none;
-      padding: 28px 22px;
-      margin-right: 15px;
-      h2 {
-        font-family: $font-pingfang;
-        font-size: 18px;
-        font-weight: bold;
-        letter-spacing: 1px;
-      }
-      .percent {
-        margin-bottom: 10px;
-        svg {
-          width: 15px;
-          vertical-align: middle;
+      margin-right: 10px;
+      position: relative;
+      .money-container {
+        min-width: 91px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        h2 {
+          font-family: $font-pingfang;
+          font-size: 18px;
+          font-weight: bold;
+          letter-spacing: 1px;
         }
-        span {
-          font-family: $font-dosis;
-          font-size: 16px;
-          font-weight: normal;
-        }
-      }
-      .data-up {
-        color: $dataUpColor;
-      }
-      .data-down {
-        color: $dataDownColor;
-      }
-      .arrow-down {
-        transform: rotate(180deg);
-      }
-
-      .exchange {
-        text-align: center;
-        color: #787878;
-        font-family: $font-dosis;
-        font-size: 23px;
-        letter-spacing: 1px;
-        p {
-          margin: 0 0 20px 0;
-        }
-        .sync-icon {
-          width: 20px;
-          margin: 0 auto 20px;
-        }
-        .rmb {
-          color: #2484f1;
-          font-size: 17px;
+        .percent {
+          margin-bottom: 10px;
+          svg {
+            width: 15px;
+            vertical-align: middle;
+          }
           span {
-            margin-left: 8px;
-            font-size: 23px;
-            font-weight: 500;
+            font-family: $font-dosis;
+            font-size: 16px;
+            font-weight: normal;
+          }
+        }
+        .data-up {
+          color: $dataUpColor;
+        }
+        .data-down {
+          color: $dataDownColor;
+        }
+        .arrow-down {
+          transform: rotate(180deg);
+        }
+
+        .exchange {
+          text-align: center;
+          color: #787878;
+          font-family: $font-dosis;
+          font-size: 23px;
+          letter-spacing: 1px;
+          .exchange_1 {
+            margin: 0 0 20px 0;
+          }
+          .sync-icon {
+            width: 20px;
+            margin: 0 auto 20px;
+          }
+          .sync-icon svg:hover{
+            transform: rotate(180deg);
+            transition: all 1s ease;
+          }
+          .rmb {
+            color: #2484f1;
+            font-size: 17px;
+            margin: 0;
+            span {
+              margin-left: 8px;
+              font-size: 23px;
+              font-weight: 500;
+            }
           }
         }
       }
@@ -197,20 +215,30 @@ body {
   }
   // 进度卡片
   .item-progress {
-    flex-grow:2;
-    padding: 15px 10px;
+    width: 20%;
+    position: relative;
     .item-progress_container {
-      vertical-align: middle;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      font-family: $font-pingfang;
     }
     p {
       margin: 0;
     }
     .progress-container:not(:last-child) {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     .progress-bar {
       width: 70%;
       height: 5px;
     }
+    span{
+      font-size: 15px;
+      margin-left: 10px;
+    }
+    
   }
 }
