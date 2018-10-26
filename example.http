@@ -1,0 +1,5 @@
+### (price api)
+GET https://api.coindesk.com/v1/bpi/currentprice.json
+
+### (weather api)
+GET https://free-api.heweather.com/v5/weather?key=987bc68871c94142ae815b39a1081e63&city=chengdu
