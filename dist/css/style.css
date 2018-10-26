@@ -57,7 +57,7 @@ body {
   background-color: #fbfbfb; }
   .main-panel .panel-container {
     min-width: 1288px;
-    max-width: 1500px;
+    max-width: 1600px;
     margin: 50px auto;
     padding: 0 20px;
     display: flex;
@@ -93,7 +93,7 @@ body {
         font-size: 20px;
         font-weight: normal; }
       .first-area .item-time .time-container h3 {
-        font-family: Dosis, sans-serif;
+        font-family: Dosis, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 30px;
         font-weight: normal;
         letter-spacing: 3px;
@@ -122,20 +122,25 @@ body {
         left: 50%;
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%); }
-        .first-area .item-exchange .item-exchange_money .money-container h2 {
-          font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
-          font-size: 18px;
-          font-weight: bold;
-          letter-spacing: 1px; }
-        .first-area .item-exchange .item-exchange_money .money-container .percent {
-          margin-bottom: 10px; }
-          .first-area .item-exchange .item-exchange_money .money-container .percent svg {
-            width: 15px;
-            vertical-align: middle; }
-          .first-area .item-exchange .item-exchange_money .money-container .percent span {
-            font-family: Dosis, sans-serif;
-            font-size: 16px;
-            font-weight: normal; }
+        .first-area .item-exchange .item-exchange_money .money-container .moneyName-container {
+          width: 100px;
+          margin: 0 auto; }
+          .first-area .item-exchange .item-exchange_money .money-container .moneyName-container h2 {
+            font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px; }
+          .first-area .item-exchange .item-exchange_money .money-container .moneyName-container .percent {
+            margin-bottom: 10px; }
+            .first-area .item-exchange .item-exchange_money .money-container .moneyName-container .percent svg {
+              width: 15px;
+              vertical-align: middle;
+              position: relative;
+              top: -2px; }
+            .first-area .item-exchange .item-exchange_money .money-container .moneyName-container .percent span {
+              font-family: Dosis, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+              font-size: 16px;
+              font-weight: normal; }
         .first-area .item-exchange .item-exchange_money .money-container .data-up {
           color: #69de6d; }
         .first-area .item-exchange .item-exchange_money .money-container .data-down {
@@ -146,9 +151,8 @@ body {
         .first-area .item-exchange .item-exchange_money .money-container .exchange {
           text-align: center;
           color: #787878;
-          font-family: Dosis, sans-serif;
-          font-size: 23px;
-          letter-spacing: 1px; }
+          font-family: Dosis, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-size: 23px; }
           .first-area .item-exchange .item-exchange_money .money-container .exchange .exchange_1 {
             margin: 0 0 20px 0; }
           .first-area .item-exchange .item-exchange_money .money-container .exchange .sync-icon {
