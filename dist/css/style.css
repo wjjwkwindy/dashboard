@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Dosis";
-  src: url(ba735d6750440c952c1ba0793adf7a71.ttf); }
+  src: url(assets/fonts/Dosis-Book.ttf); }
 
 .sidebar .main-nav ul li:hover, .sidebar .main-nav ul .active {
   box-shadow: 0 0 50px #eaeaea;
