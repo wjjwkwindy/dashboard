@@ -1,7 +1,12 @@
 let doc = document,
-  url = 'https://free-api.heweather.com/v5/weather',
-  key = '987bc68871c94142ae815b39a1081e63',
-  city = 'chengdu',
+  weatherUrlBase = 'https://free-api.heweather.com/v5/weather',
+  weatherKey = '987bc68871c94142ae815b39a1081e63',
+  weatherCity = 'chengdu',
+  priceUrlBase='https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+  priceKey='297fbec3-e209-40f1-9efa-1a067af4e3fe',
+  priceStart=1,
+  priceLimit=4,
+  priceConvert='CNY',
   weekday = [
     'Sunday',
     'Monday',
@@ -30,7 +35,13 @@ let doc = document,
     weather: doc.getElementById('weather'),
     yearProgressElem: doc.getElementById('yearProgress'),
     monthProgressElem: doc.getElementById('monthProgress'),
-    weekProgressElem: doc.getElementById('weekProgress')
+    weekProgressElem: doc.getElementById('weekProgress'),
+    BTCPercent:doc.getElementById('BTC-percent'),
+    BCHPercent:doc.getElementById('BCH-percent'),
+    ETHPercent:doc.getElementById('ETH-percent'),
+    BTCPrice:doc.getElementById('BTC-price'),
+    BCHPrice:doc.getElementById('BCH-price'),
+    ETHPrice:doc.getElementById('ETH-price'),
   };
 
 // 获取某个月份总天数
@@ -67,7 +78,7 @@ function getSessionStorage(key) {
 
 // 初始化天气请求
 function initialWeatherRequest() {
-  const weatherUrl = addUrlParam(url, ['city', 'key'], [city, key]);
+  const weatherUrl = addUrlParam(weatherUrlBase, ['city', 'key'], [weatherCity,weatherKey]);
   console.log('[info] ' + weatherUrl);
 
   return new Promise((resolve, reject) => {
@@ -102,6 +113,8 @@ let starWeatherRequest = function() {
     })
     .catch(error => {
       console.log(error);
+      console.log('[error] 重置上次请求时间为0');
+      sessionStorage.setItem('requestTime',0);
     });
 };
 
@@ -141,7 +154,7 @@ if (lastRequestTime) {
     handleWeather(getSessionStorage('weather'), 'local');
   } else {
     // 据离上次请求大于"请求间隔时间"，发起天气请求
-    console.log('[info] 据离上次请求大于' + restTime + '分钟');
+    console.log('[info] 据离上次请求大于 ' + restTime + ' 分钟');
     starWeatherRequest();
   }
 } else {
@@ -179,7 +192,113 @@ function handleWeather(res, origin = 'local') {
     }
   }
   weather.innerHTML += weatherPcpn;
-  weather.innerHTML += '<span>' + city + '</span>';
+  weather.innerHTML += '<span>' + weatherCity + '</span>';
+}
+
+// 初始化货币走势请求
+function initialPriceRequest() {
+  const priceUrl=addUrlParam(priceUrlBase,['CMC_PRO_API_KEY','start','limit','convert'],[priceKey,priceStart,priceLimit,priceConvert]);
+  console.log('[info] ' + priceUrl);
+
+  return new Promise((resolve, reject) => {
+    const now = Date.now();
+    let client = new XMLHttpRequest();
+    client.open('GET', priceUrl);
+    client.onreadystatechange = handler;
+    client.responseType = 'json';
+    client.setRequestHeader('Accept', 'application/json');
+    client.send();
+
+    function handler() {
+      if (this.readyState !== 4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    }
+  });
+}
+// 获取货币走势
+let startPriceRequest = (()=>{
+  initialPriceRequest()
+    .then(res=>{
+      handlePrice(res);
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+})();
+
+// 处理货币走势
+function handlePrice(res) {
+  let priceData=res.data,
+    priceDataCache,
+    priceBTC=[],
+    priceETH=[],
+    priceBCH=[],
+    priceTotal=[];
+  for (let i = 0; i < priceData.length; i++) {
+    priceDataCache=priceData[i].quote.CNY;
+    switch (priceData[i].symbol) {
+      case 'BTC':
+        //priceBTC=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
+        priceTotal[0]=['BTC',priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h];
+        break;
+      case 'BCH':
+        //priceBCH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
+        priceTotal[1]=['BCH',priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h];
+        break;
+      case 'ETH':
+        //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
+        priceTotal[2]=['ETH',priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h];
+        break;
+      default:
+        break;
+    }
+  }
+
+  for (let i = 0; i < priceTotal.length; i++) {
+    switch (priceTotal[i][0]) {
+      case 'BTC':
+        dataString.BTCPrice.innerText=priceTotal[i][1];
+        dataString.BTCPercent.innerText=priceTotal[i][2]+'%';
+        if(priceTotal[i][2]<0){
+          dataString.BTCPercent.previousElementSibling.classList.add('arrow-down');
+          dataString.BTCPercent.parentElement.classList.add('data-down');
+        }else{
+          dataString.BTCPercent.parentElement.classList.add('data-up');
+        }
+        break;
+
+      case 'BCH':
+        dataString.BCHPrice.innerText=priceTotal[i][1];
+        dataString.BCHPercent.innerText=priceTotal[i][2]+'%';
+        if(priceTotal[i][2]<0){
+          dataString.BCHPercent.previousElementSibling.classList.add('arrow-down');
+          dataString.BCHPercent.parentElement.classList.add('data-down');
+        }else{
+          dataString.BCHPercent.parentElement.classList.add('data-up');
+        }
+        break;
+
+      case 'ETH':
+        dataString.ETHPrice.innerText=priceTotal[i][1];
+        dataString.ETHPercent.innerText=priceTotal[i][2]+'%';
+        if(priceTotal[i][2]<0){
+          dataString.ETHPercent.previousElementSibling.classList.add('arrow-down');
+          dataString.ETHPercent.parentElement.classList.add('data-down');
+        }else{
+          dataString.ETHPercent.parentElement.classList.add('data-up');
+        }
+        break;
+      default:
+        break;
+      }
+    
+  }
 }
 
 // 计算时间进度
