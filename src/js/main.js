@@ -36,6 +36,7 @@ let doc = document,
     yearProgressElem: doc.getElementById('yearProgress'),
     monthProgressElem: doc.getElementById('monthProgress'),
     weekProgressElem: doc.getElementById('weekProgress'),
+    USDPrice:doc.getElementById('USD-price'),
     BTCPercent:doc.getElementById('BTC-percent'),
     BCHPercent:doc.getElementById('BCH-percent'),
     ETHPercent:doc.getElementById('ETH-percent'),
@@ -76,6 +77,33 @@ function getSessionStorage(key) {
   return str.split('&');
 }
 
+// 初始化请求
+function initialRequest(url) {
+  console.log('[info] '+url);
+  
+  return new Promise((resolve, reject) => {
+    reject(new Error('故意的'));
+    
+    let client = new XMLHttpRequest();
+    client.open('GET', url);
+    client.onreadystatechange = handler;
+    client.responseType = 'json';
+    client.setRequestHeader('Accept', 'application/json');
+    client.send();
+
+    function handler() {
+      if (this.readyState !== 4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    }
+  });
+  
+}
 // 初始化天气请求
 function initialWeatherRequest() {
   const weatherUrl = addUrlParam(weatherUrlBase, ['city', 'key'], [weatherCity,weatherKey]);
@@ -105,7 +133,8 @@ function initialWeatherRequest() {
 
 // 处理天气请求
 let starWeatherRequest = function() {
-  initialWeatherRequest()
+  const weatherUrl = addUrlParam(weatherUrlBase, ['city', 'key'], [weatherCity,weatherKey]);
+  initialRequest(weatherUrl)
     .then(res => {
       console.log('[info] Get weather information succeed.');
       sessionStorage.setItem('requestTime', Date.now());
@@ -222,8 +251,9 @@ function initialPriceRequest() {
   });
 }
 // 获取货币走势
-let startPriceRequest = (()=>{
-  initialPriceRequest()
+(()=>{
+  const priceUrl=addUrlParam(priceUrlBase,['CMC_PRO_API_KEY','start','limit','convert'],[priceKey,priceStart,priceLimit,priceConvert]);
+  initialRequest(priceUrl)
     .then(res=>{
       handlePrice(res);
     })
@@ -299,6 +329,24 @@ function handlePrice(res) {
       }
     
   }
+}
+
+// 获取美元汇率
+(()=>{
+  const usdPriceUrl = 'http://free.currencyconverterapi.com/api/v3/convert?q=USD_CNY&compact=ultra';
+  initialRequest(usdPriceUrl)
+    .then(res=>{
+      handleUSDPrice(res);
+    })
+    .catch(error=>{
+      console.log('[error] '+error);
+    })
+})()
+
+// 处理美元汇率
+function handleUSDPrice(res) {
+  let usdPrice=res.USD_CNY.toFixed(2);
+  dataString.USDPrice.innerText=usdPrice;
 }
 
 // 计算时间进度

@@ -31,5 +31,8 @@
     "webpack": "^4.21.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "echarts": "^4.2.0-rc.2"
   }
 }
