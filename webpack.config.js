@@ -12,7 +12,7 @@ module.exports = {
   // **出口文件**
   output: {
     filename: 'bundle.[hash:4].js', // 打包后的文件名称
-    path: path.resolve('dist') // 打包后的目录，必须是绝对路径
+    path: path.resolve('dist'), // 打包后的目录，必须是绝对路径
   },
 
   // *处理对应模块
@@ -21,7 +21,7 @@ module.exports = {
       {
         test: /\.css/,
         use: normalizeCss.extract({
-          use: ['css-loader'],
+          use: 'css-loader',
           publicPath: '../'
         })
       },
@@ -70,6 +70,11 @@ module.exports = {
       {
         test: /\.(eot|ttf|woff|svg)$/,
         loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          publicPath: 'assets/fonts/',
+          outputPath: 'assets/fonts/'
+        }
       },
       // 处理es6代码
       {
@@ -108,5 +113,5 @@ module.exports = {
   mode: 'development',
 
   // **开启调试**
-  // devtool: 'source-map'
+  devtool: 'source-map'
 };
