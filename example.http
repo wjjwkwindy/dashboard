@@ -6,3 +6,12 @@ GET https://free-api.heweather.com/v5/weather?key=987bc68871c94142ae815b39a1081e
 
 ### (price api)
 GET https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=297fbec3-e209-40f1-9efa-1a067af4e3fe&start=1&limit=4&convert=CNY
+
+### (USD api)
+GET https://www.bloomberg.com/markets/api/security/currency/cross-rates/USD,CNY
+
+### 
+GET http://free.currencyconverterapi.com/api/v3/convert?q=USD_CNY&compact=ultra
+
+###
+GET https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra&date=2018-10-22&endDate=2018-10-30
