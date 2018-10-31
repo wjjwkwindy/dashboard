@@ -8,7 +8,8 @@ let doc = document,
   priceStart = 1,
   priceLimit = 4,
   priceConvert = 'CNY',
-  newsUrl = 'http://c.m.163.com/nc/article/headline/T1348647853363/0-40.html',
+  newsUrl = 'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/news#!method=get',
+  todayInHistoryUrl='https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/history#!method=get',
   weekday = [
     'Sunday',
     'Monday',
@@ -44,7 +45,9 @@ let doc = document,
     ETHPercent: doc.getElementById('ETH-percent'),
     BTCPrice: doc.getElementById('BTC-price'),
     BCHPrice: doc.getElementById('BCH-price'),
-    ETHPrice: doc.getElementById('ETH-price')
+    ETHPrice: doc.getElementById('ETH-price'),
+    newsContainer:doc.getElementById('news'),
+    historyContainer:doc.getElementById('history'),
   };
 
 // 获取某个月份总天数
@@ -84,7 +87,7 @@ function initialRequest(url) {
   console.log('[info] ' + url);
 
   return new Promise((resolve, reject) => {
-    reject(new Error('故意的'));
+    //reject(new Error('故意的'));
 
     let client = new XMLHttpRequest();
     client.open('GET', url);
@@ -382,6 +385,50 @@ function handlePrice(res) {
 function handleUSDPrice(res) {
   let usdPrice = res.USD_CNY.toFixed(2);
   dataString.USDPrice.innerText = usdPrice;
+}
+
+// 获取新闻
+(() => {
+  initialRequest(newsUrl)
+    .then(res => {
+      handleNews(res);
+    })
+    .catch(error => {
+      console.log('[error]' + error);
+    });
+})();
+
+// 处理新闻
+function handleNews(res) {
+  let news=res.news;
+  let newsElem='';
+  for (let i = 0; i < news.length; i++) {
+      newsElem+='<a target="_blank"  href=\"'+news[i].link+'\">'+(i+1)+'. '+news[i].title+'</a>';
+  }
+  dataString.newsContainer.innerHTML=newsElem;
+  
+}
+
+// 获取历史上的今天
+(()=>{
+  initialRequest(todayInHistoryUrl)
+  .then(res=>{
+    handleHistory(res);
+  })
+  .catch(error=>{
+    console.log('[error]' + error);
+  })
+})();
+
+// 处理历史上的今天
+function handleHistory(res){
+  let history=res.data;
+  let historyElem='';
+  for (let i = 0; i < history.length; i++) {
+    historyElem+='<p>'+history[i].year+' '+history[i].title+'</p>'
+    if(i==4) break;
+  }
+  dataString.historyContainer.innerHTML=historyElem;
 }
 
 // 计算时间进度
