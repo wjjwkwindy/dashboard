@@ -72,8 +72,9 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          publicPath: 'assets/fonts/',
-          outputPath: 'assets/fonts/'
+          outputPath: 'assets/fonts/',
+          publicPath: '../assets/fonts/',
+          useRelativePaths: true
         }
       },
       // 处理es6代码
