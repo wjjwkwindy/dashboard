@@ -6,10 +6,14 @@ let doc = document,
     'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
   priceKey = '297fbec3-e209-40f1-9efa-1a067af4e3fe',
   priceStart = 1,
-  priceLimit = 4,
+  priceLimit = 7,
   priceConvert = 'CNY',
-  newsUrl = 'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/news#!method=get',
-  todayInHistoryUrl='https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/history#!method=get',
+  usdPriceUrlBase =
+    'https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra',
+  newsUrl =
+    'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/news#!method=get',
+  todayInHistoryUrl =
+    'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/history#!method=get',
   weekday = [
     'Sunday',
     'Monday',
@@ -40,20 +44,36 @@ let doc = document,
     monthProgressElem: doc.getElementById('monthProgress'),
     weekProgressElem: doc.getElementById('weekProgress'),
     USDPrice: doc.getElementById('USD-price'),
+    USDPercent: doc.getElementById('USD-percent'),
     BTCPercent: doc.getElementById('BTC-percent'),
-    BCHPercent: doc.getElementById('BCH-percent'),
-    ETHPercent: doc.getElementById('ETH-percent'),
     BTCPrice: doc.getElementById('BTC-price'),
+    BCHPercent: doc.getElementById('BCH-percent'),
     BCHPrice: doc.getElementById('BCH-price'),
+    ETHPercent: doc.getElementById('ETH-percent'),
     ETHPrice: doc.getElementById('ETH-price'),
-    newsContainer:doc.getElementById('news'),
-    historyContainer:doc.getElementById('history'),
+    LTCPercent: doc.getElementById('LTC-percent'),
+    LTCPrice: doc.getElementById('LTC-price'),
+    newsContainer: doc.getElementById('news'),
+    historyContainer: doc.getElementById('history')
   };
 
 // 获取某个月份总天数
 Date.prototype.getMonthDays = function() {
   var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
   return d.getDate();
+};
+
+// 获取前一天日期
+Date.prototype.getDateParam = function(separator) {
+  let separateDate = '';
+  separateDate += this.getFullYear() + separator;
+  separateDate += this.getMonth() + 1 + separator;
+  if (this.getDate() < 10) {
+    separateDate += '0' + this.getDate();
+  } else {
+    separateDate += this.getDate();
+  }
+  return separateDate;
 };
 
 // 拼接url
@@ -163,19 +183,7 @@ let starWeatherRequest = function() {
 let date = new Date();
 dataString.date.innerHTML = (() => {
   let today = '';
-  for (let i = 1; i <= 3; i++) {
-    switch (i) {
-      case 1:
-        today += date.getFullYear() + '.';
-        break;
-      case 2:
-        today += date.getMonth() + 1 + '.';
-        break;
-      case 3:
-        today += date.getDate();
-        break;
-    }
-  }
+  today += date.getDateParam('.');
   today += '<span>' + weekday[date.getDay()] + '</span>';
   return today;
 })();
@@ -317,6 +325,14 @@ function handlePrice(res) {
           priceDataCache.percent_change_24h
         ];
         break;
+      case 'LTC':
+        //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
+        priceTotal[3] = [
+          'LTC',
+          priceDataCache.price.toFixed(2),
+          priceDataCache.percent_change_24h
+        ];
+        break;
       default:
         break;
     }
@@ -362,6 +378,18 @@ function handlePrice(res) {
           dataString.ETHPercent.parentElement.classList.add('data-up');
         }
         break;
+      case 'LTC':
+        dataString.LTCPrice.innerText = priceTotal[i][1];
+        dataString.LTCPercent.innerText = priceTotal[i][2] + '%';
+        if (priceTotal[i][2] < 0) {
+          dataString.LTCPercent.previousElementSibling.classList.add(
+            'arrow-down'
+          );
+          dataString.LTCPercent.parentElement.classList.add('data-down');
+        } else {
+          dataString.LTCPercent.parentElement.classList.add('data-up');
+        }
+        break;
       default:
         break;
     }
@@ -369,12 +397,18 @@ function handlePrice(res) {
 }
 
 // 获取美元汇率
+let usdPriceStartDate = new Date(Date.now() - 86400000).getDateParam('-'),
+  usdPriceEndDate = new Date(Date.now()).getDateParam('-');
+let usdPriceUrl = addUrlParam(
+  usdPriceUrlBase,
+  ['date', 'endDate'],
+  [usdPriceStartDate, usdPriceEndDate]
+);
 (() => {
-  const usdPriceUrl =
-    'http://free.currencyconverterapi.com/api/v3/convert?q=USD_CNY&compact=ultra';
   initialRequest(usdPriceUrl)
     .then(res => {
       handleUSDPrice(res);
+      // console.log(res);
     })
     .catch(error => {
       console.log('[error] ' + error);
@@ -383,8 +417,17 @@ function handlePrice(res) {
 
 // 处理美元汇率
 function handleUSDPrice(res) {
-  let usdPrice = res.USD_CNY.toFixed(2);
-  dataString.USDPrice.innerText = usdPrice;
+  let usdPriceYesterday = res.USD_CNY[usdPriceStartDate];
+  let usdPriceToday = res.USD_CNY[usdPriceEndDate];
+  let usdPricePercent = (usdPriceToday - usdPriceYesterday) / usdPriceToday;
+  if (usdPricePercent < 0) {
+    dataString.USDPercent.previousElementSibling.classList.add('arrow-down');
+    dataString.USDPercent.parentElement.classList.add('data-down');
+  } else {
+    dataString.USDPercent.parentElement.classList.add('data-up');
+  }
+  dataString.USDPercent.innerText = usdPricePercent.toFixed(4);
+  dataString.USDPrice.innerText = usdPriceToday.toFixed(2);
 }
 
 // 获取新闻
@@ -400,35 +443,41 @@ function handleUSDPrice(res) {
 
 // 处理新闻
 function handleNews(res) {
-  let news=res.news;
-  let newsElem='';
+  let news = res.news;
+  let newsElem = '';
   for (let i = 0; i < news.length; i++) {
-      newsElem+='<a target="_blank"  href=\"'+news[i].link+'\">'+(i+1)+'. '+news[i].title+'</a>';
+    newsElem +=
+      '<a target="_blank"  href="' +
+      news[i].link +
+      '">' +
+      (i + 1) +
+      '. ' +
+      news[i].title +
+      '</a>';
   }
-  dataString.newsContainer.innerHTML=newsElem;
-  
+  dataString.newsContainer.innerHTML = newsElem;
 }
 
 // 获取历史上的今天
-(()=>{
+(() => {
   initialRequest(todayInHistoryUrl)
-  .then(res=>{
-    handleHistory(res);
-  })
-  .catch(error=>{
-    console.log('[error]' + error);
-  })
+    .then(res => {
+      handleHistory(res);
+    })
+    .catch(error => {
+      console.log('[error]' + error);
+    });
 })();
 
 // 处理历史上的今天
-function handleHistory(res){
-  let history=res.data;
-  let historyElem='';
+function handleHistory(res) {
+  let history = res.data;
+  let historyElem = '';
   for (let i = 0; i < history.length; i++) {
-    historyElem+='<p>'+history[i].year+' '+history[i].title+'</p>'
-    if(i==4) break;
+    historyElem += '<p>' + history[i].year + ' ' + history[i].title + '</p>';
+    if (i == 4) break;
   }
-  dataString.historyContainer.innerHTML=historyElem;
+  dataString.historyContainer.innerHTML = historyElem;
 }
 
 // 计算时间进度
