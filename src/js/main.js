@@ -6,7 +6,7 @@ let doc = document,
     'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
   priceKey = '297fbec3-e209-40f1-9efa-1a067af4e3fe',
   priceStart = 1,
-  priceLimit = 4,
+  priceLimit = 7,
   priceConvert = 'CNY',
   newsUrl = 'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/news#!method=get',
   todayInHistoryUrl='https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/history#!method=get',
@@ -41,11 +41,13 @@ let doc = document,
     weekProgressElem: doc.getElementById('weekProgress'),
     USDPrice: doc.getElementById('USD-price'),
     BTCPercent: doc.getElementById('BTC-percent'),
-    BCHPercent: doc.getElementById('BCH-percent'),
-    ETHPercent: doc.getElementById('ETH-percent'),
     BTCPrice: doc.getElementById('BTC-price'),
+    BCHPercent: doc.getElementById('BCH-percent'),
     BCHPrice: doc.getElementById('BCH-price'),
+    ETHPercent: doc.getElementById('ETH-percent'),
     ETHPrice: doc.getElementById('ETH-price'),
+    LTCPercent: doc.getElementById('LTC-percent'),
+    LTCPrice: doc.getElementById('LTC-price'),
     newsContainer:doc.getElementById('news'),
     historyContainer:doc.getElementById('history'),
   };
@@ -317,6 +319,14 @@ function handlePrice(res) {
           priceDataCache.percent_change_24h
         ];
         break;
+        case 'LTC':
+        //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
+        priceTotal[3] = [
+          'LTC',
+          priceDataCache.price.toFixed(2),
+          priceDataCache.percent_change_24h
+        ];
+        break;
       default:
         break;
     }
@@ -360,6 +370,18 @@ function handlePrice(res) {
           dataString.ETHPercent.parentElement.classList.add('data-down');
         } else {
           dataString.ETHPercent.parentElement.classList.add('data-up');
+        }
+        break;
+        case 'LTC':
+        dataString.LTCPrice.innerText = priceTotal[i][1];
+        dataString.LTCPercent.innerText = priceTotal[i][2] + '%';
+        if (priceTotal[i][2] < 0) {
+          dataString.LTCPercent.previousElementSibling.classList.add(
+            'arrow-down'
+          );
+          dataString.LTCPercent.parentElement.classList.add('data-down');
+        } else {
+          dataString.LTCPercent.parentElement.classList.add('data-up');
         }
         break;
       default:
