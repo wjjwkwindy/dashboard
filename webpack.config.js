@@ -94,6 +94,10 @@ module.exports = {
       template: './src/index.html', // 用哪个html作为模板 // 在 src 目录下创建一个 index.html 页面当做模板来用
       hash: true // 会在打包好的 bundle.js 后面加上 hash 串
     }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      favicon:'src/assets/images/favicon.ico',
+    }),
     //new ExtractTextWebpackPlugin('css/style.css'),// 拆分后会把 css 文件放到 dist 目录下的 css/style.css
     styleScss,
     normalizeCss,
