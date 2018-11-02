@@ -426,7 +426,7 @@ function handleUSDPrice(res) {
   } else {
     dataString.USDPercent.parentElement.classList.add('data-up');
   }
-  dataString.USDPercent.innerText = usdPricePercent.toFixed(4);
+  dataString.USDPercent.innerText = usdPricePercent.toFixed(4)+'%';
   dataString.USDPrice.innerText = usdPriceToday.toFixed(2);
 }
 
