@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Dosis';
-  src: url(../dist/assets/fonts/Dosis-Book.ttf); }
+  src: url(../assets/fonts/Dosis-Book.ttf); }
 
 .first-area .item-exchange .item-exchange_money .money-container .moneyName-container h2, .second-area .item-origin .item-origin-items .origin-container h2, .second-area .item-today h2 {
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
