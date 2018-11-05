@@ -104637,7 +104637,7 @@ function handleUSDPrice(res) {
     dataString.USDPercent.parentElement.classList.add('data-up');
   }
 
-  dataString.USDPercent.innerText = usdPricePercent.toFixed(4);
+  dataString.USDPercent.innerText = usdPricePercent.toFixed(4) + '%';
   dataString.USDPrice.innerText = usdPriceToday.toFixed(2);
 } // 获取新闻
 
@@ -104711,4 +104711,4 @@ weekProgressElem.nextElementSibling.innerText = weekProgress + '%';
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.fa0c.js.map
+//# sourceMappingURL=bundle.bc78.js.map

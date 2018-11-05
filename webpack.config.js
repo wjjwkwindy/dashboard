@@ -2,8 +2,8 @@ let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
-let styleScss = new ExtractTextWebpackPlugin('css/style.css');
-let normalizeCss = new ExtractTextWebpackPlugin('css/normalize.css');
+let styleScss = new ExtractTextWebpackPlugin('dist/css/style.css');
+let normalizeCss = new ExtractTextWebpackPlugin('dist/css/normalize.css');
 
 module.exports = {
   // **入口文件**
@@ -11,8 +11,8 @@ module.exports = {
 
   // **出口文件**
   output: {
-    filename: 'bundle.[hash:4].js', // 打包后的文件名称
-    path: path.resolve('dist'), // 打包后的目录，必须是绝对路径
+    filename: 'dist/bundle.[hash:4].js', // 打包后的文件名称
+    path: path.resolve(__dirname), // 打包后的目录，必须是绝对路径
   },
 
   // *处理对应模块
@@ -56,7 +56,7 @@ module.exports = {
             options: {
               limit: 8192, // 小于 8k 的图片自动转成 base64 格式，并且不会存在实体图片
               name: '[name].[ext]',
-              outputPath: 'assets/images/' // 图片打包后存放的目录
+              outputPath: 'dist/assets/images/' // 图片打包后存放的目录
             }
           }
         ]
@@ -72,7 +72,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          outputPath: 'assets/fonts/',
+          outputPath: 'dist/assets/fonts/',
           publicPath: '../assets/fonts/',
           useRelativePaths: true
         }

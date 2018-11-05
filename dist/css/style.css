@@ -87,6 +87,7 @@ body {
     max-width: 439px;
     position: relative; }
     .first-area .item-time .time-container {
+      width: 80%;
       position: absolute;
       top: 50%;
       left: 50%;
