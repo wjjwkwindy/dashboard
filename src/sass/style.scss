@@ -27,6 +27,30 @@ body {
   height: 100%;
 }
 
+.icomoon{
+  font-family: $font-icomoon;
+}
+
+.icon-home-solid::before{
+  content: "\e903";
+}
+
+.icon-cloud-solid::before{
+  content: "\e901";
+}
+
+.icon-chart-pie-solid::before{
+  content: "\e900";
+}
+
+.icon-cog-solid::before{
+  content: "\e902";
+}
+
+.icon-caret-up-solid::before{
+  content:"\e904";
+}
+
 // 左边栏
 .sidebar {
   width: $left-sidebar-width;
@@ -47,9 +71,10 @@ body {
     }
 
     ul {
-      list-style: none;
       padding: 0;
       margin-top: 80px;
+      list-style: none;
+      color: #c8c8c8;
 
       li {
         width: 50px;
@@ -58,17 +83,14 @@ body {
         box-sizing: content-box;
         cursor: pointer;
         transition: all 0.3s ease;
+        position: relative;
 
-        svg {
-          width: 20px;
-          height: auto;
-          position: relative;
+        span{
+          font-family: $font-icomoon;
+          position: absolute;
           top: 50%;
-          transform: translateY(-50%);
-
-          path {
-            fill: $iconColor;
-          }
+          left: 50%;
+          transform: translate(-50%,-50%);
         }
       }
 
@@ -78,12 +100,7 @@ body {
 
       .active {
         @extend %nav-active;
-
-        svg {
-          path {
-            fill: $iconActiveColor;
-          }
-        }
+        color: $iconActiveColor;
       }
     }
   }
@@ -92,13 +109,10 @@ body {
 // 主栏
 .main-panel {
   background-color: $bgColor;
+  overflow: hidden;
 
   .panel-container {
-    min-width: 1288px;
-    max-width: 1600px;
-    height: calc(100% - 100px);
-    margin: 50px auto;
-    padding: 0 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -115,7 +129,7 @@ body {
     margin-right: 45px;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 0 20px #f8f8f8;
+    box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.08);
   }
 
   .item:last-child {
@@ -191,17 +205,10 @@ body {
             letter-spacing: 1px;
           }
 
-          .percent {
+          .percent-container {
             margin-bottom: 10px;
 
-            svg {
-              width: 15px;
-              vertical-align: middle;
-              position: relative;
-              top: -2px;
-            }
-
-            span {
+            .percent {
               font-family: $font-dosis;
               font-size: 16px;
               font-weight: normal;
@@ -236,10 +243,7 @@ body {
             margin: 0 auto 20px;
           }
 
-          .sync-icon svg:hover {
-            transform: rotate(180deg);
-            transition: all 1s ease;
-          }
+
 
           .rmb {
             color: #2484f1;
