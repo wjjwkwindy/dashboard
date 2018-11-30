@@ -1,4 +1,5 @@
 import './sass/style.scss';
+import './sass/col-refactor.scss';
 import './css/normalize.css';
 import './js/main.js';
 import './js/echrts-theme.js'

@@ -41,8 +41,11 @@ let doc = document,
     date: doc.getElementById('date'),
     weather: doc.getElementById('weather'),
     yearProgressElem: doc.getElementById('yearProgress'),
+    yearProgressBar: doc.getElementById('yearProgressBar'),
     monthProgressElem: doc.getElementById('monthProgress'),
+    monthProgressBar: doc.getElementById('monthProgressBar'),
     weekProgressElem: doc.getElementById('weekProgress'),
+    weekProgressBar: doc.getElementById('weekProgressBar'),
     USDPrice: doc.getElementById('USD-price'),
     USDPercent: doc.getElementById('USD-percent'),
     BTCPercent: doc.getElementById('BTC-percent'),
@@ -305,7 +308,7 @@ function handlePrice(res) {
         //priceBTC=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
         priceTotal[0] = [
           'BTC',
-          priceDataCache.price.toFixed(2),
+          priceDataCache.price.toFixed(0),
           priceDataCache.percent_change_24h
         ];
         break;
@@ -313,7 +316,7 @@ function handlePrice(res) {
         //priceBCH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
         priceTotal[1] = [
           'BCH',
-          priceDataCache.price.toFixed(2),
+          priceDataCache.price.toFixed(0),
           priceDataCache.percent_change_24h
         ];
         break;
@@ -321,7 +324,7 @@ function handlePrice(res) {
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
         priceTotal[2] = [
           'ETH',
-          priceDataCache.price.toFixed(2),
+          priceDataCache.price.toFixed(0),
           priceDataCache.percent_change_24h
         ];
         break;
@@ -329,7 +332,7 @@ function handlePrice(res) {
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
         priceTotal[3] = [
           'LTC',
-          priceDataCache.price.toFixed(2),
+          priceDataCache.price.toFixed(0),
           priceDataCache.percent_change_24h
         ];
         break;
@@ -345,11 +348,11 @@ function handlePrice(res) {
         dataString.BTCPercent.innerText = priceTotal[i][2] + '%';
         if (priceTotal[i][2] < 0) {
           dataString.BTCPercent.previousElementSibling.classList.add(
-            'arrow-down'
+            'icon-caret-down-solid'
           );
-          dataString.BTCPercent.parentElement.classList.add('data-down');
+          dataString.BTCPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.BTCPercent.parentElement.classList.add('data-up');
+          dataString.BTCPercent.parentElement.classList.add('d--color-success');
         }
         break;
 
@@ -358,11 +361,11 @@ function handlePrice(res) {
         dataString.BCHPercent.innerText = priceTotal[i][2] + '%';
         if (priceTotal[i][2] < 0) {
           dataString.BCHPercent.previousElementSibling.classList.add(
-            'arrow-down'
+            'icon-caret-down-solid'
           );
-          dataString.BCHPercent.parentElement.classList.add('data-down');
+          dataString.BCHPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.BCHPercent.parentElement.classList.add('data-up');
+          dataString.BCHPercent.parentElement.classList.add('d--color-success');
         }
         break;
 
@@ -371,11 +374,11 @@ function handlePrice(res) {
         dataString.ETHPercent.innerText = priceTotal[i][2] + '%';
         if (priceTotal[i][2] < 0) {
           dataString.ETHPercent.previousElementSibling.classList.add(
-            'arrow-down'
+            'icon-caret-down-solid'
           );
-          dataString.ETHPercent.parentElement.classList.add('data-down');
+          dataString.ETHPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.ETHPercent.parentElement.classList.add('data-up');
+          dataString.ETHPercent.parentElement.classList.add('d--color-success');
         }
         break;
       case 'LTC':
@@ -383,11 +386,11 @@ function handlePrice(res) {
         dataString.LTCPercent.innerText = priceTotal[i][2] + '%';
         if (priceTotal[i][2] < 0) {
           dataString.LTCPercent.previousElementSibling.classList.add(
-            'arrow-down'
+            'icon-caret-down-solid'
           );
-          dataString.LTCPercent.parentElement.classList.add('data-down');
+          dataString.LTCPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.LTCPercent.parentElement.classList.add('data-up');
+          dataString.LTCPercent.parentElement.classList.add('d--color-success');
         }
         break;
       default:
@@ -421,10 +424,10 @@ function handleUSDPrice(res) {
   let usdPriceToday = res.USD_CNY[usdPriceEndDate];
   let usdPricePercent = (usdPriceToday - usdPriceYesterday) / usdPriceToday;
   if (usdPricePercent < 0) {
-    dataString.USDPercent.previousElementSibling.classList.add('arrow-down');
-    dataString.USDPercent.parentElement.classList.add('data-down');
+    dataString.USDPercent.previousElementSibling.classList.add('icon-caret-down-solid');
+    dataString.USDPercent.parentElement.classList.add('d--color-danger');
   } else {
-    dataString.USDPercent.parentElement.classList.add('data-up');
+    dataString.USDPercent.parentElement.classList.add('d--color-success');
   }
   dataString.USDPercent.innerText = usdPricePercent.toFixed(4)+'%';
   dataString.USDPrice.innerText = usdPriceToday.toFixed(2);
@@ -445,9 +448,10 @@ function handleUSDPrice(res) {
 function handleNews(res) {
   let news = res.news;
   let newsElem = '';
-  for (let i = 0; i < news.length; i++) {
+  // 只显示7条新闻
+  for (let i = 0; i < 7; i++) {
     newsElem +=
-      '<a target="_blank"  href="' +
+      '<a class="m-weight1__item" target="_blank"  href="' +
       news[i].link +
       '">' +
       (i + 1) +
@@ -474,8 +478,8 @@ function handleHistory(res) {
   let history = res.data;
   let historyElem = '';
   for (let i = 0; i < history.length; i++) {
-    historyElem += '<p>' + history[i].year + ' ' + history[i].title + '</p>';
-    if (i == 4) break;
+    historyElem += '<p class="m-weight1__item">' + history[i].year + ' ' + history[i].title + '</p>';
+    if (i == 5) break;
   }
   dataString.historyContainer.innerHTML = historyElem;
 }
@@ -488,9 +492,9 @@ let yearProgress = Math.floor(
   ),
   monthProgress = Math.floor((date.getDate() / date.getMonthDays()) * 100);
 weekProgress = Math.floor((date.getDay() / 7) * 100);
-yearProgressElem.value = yearProgress;
-yearProgressElem.nextElementSibling.innerText = yearProgress + '%';
-monthProgressElem.value = monthProgress;
-monthProgressElem.nextElementSibling.innerText = monthProgress + '%';
-weekProgressElem.value = weekProgress;
-weekProgressElem.nextElementSibling.innerText = weekProgress + '%';
+dataString.yearProgressElem.innerText = yearProgress + '%';
+dataString.yearProgressBar.style.width = yearProgress + '%';
+dataString.monthProgressElem.innerText = monthProgress + '%';
+dataString.monthProgressBar.style.width = monthProgress + '%';
+dataString.weekProgressElem.innerText = weekProgress + '%';
+dataString.weekProgressBar.style.width = weekProgress + '%';

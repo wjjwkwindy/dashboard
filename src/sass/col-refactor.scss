@@ -1,0 +1,377 @@
+@media (min-width: 1200px) {
+  .col-1,
+  .col-2,
+  .col-3,
+  .col-4,
+  .col-5,
+  .col-6,
+  .col-7,
+  .col-8,
+  .col-9,
+  .col-10,
+  .col-11,
+  .col-12,
+  .col,
+  .col-auto,
+  .col-sm-1,
+  .col-sm-2,
+  .col-sm-3,
+  .col-sm-4,
+  .col-sm-5,
+  .col-sm-6,
+  .col-sm-7,
+  .col-sm-8,
+  .col-sm-9,
+  .col-sm-10,
+  .col-sm-11,
+  .col-sm-12,
+  .col-sm,
+  .col-sm-auto,
+  .col-md-1,
+  .col-md-2,
+  .col-md-3,
+  .col-md-4,
+  .col-md-5,
+  .col-md-6,
+  .col-md-7,
+  .col-md-8,
+  .col-md-9,
+  .col-md-10,
+  .col-md-11,
+  .col-md-12,
+  .col-md,
+  .col-md-auto,
+  .col-lg-1,
+  .col-lg-2,
+  .col-lg-3,
+  .col-lg-4,
+  .col-lg-5,
+  .col-lg-6,
+  .col-lg-7,
+  .col-lg-8,
+  .col-lg-9,
+  .col-lg-10,
+  .col-lg-11,
+  .col-lg-12,
+  .col-lg,
+  .col-lg-auto,
+  .col-xl-1,
+  .col-xl-2,
+  .col-xl-3,
+  .col-xl-4,
+  .col-xl-5,
+  .col-xl-6,
+  .col-xl-7,
+  .col-xl-8,
+  .col-xl-9,
+  .col-xl-10,
+  .col-xl-11,
+  .col-xl-12,
+  .col-xl,
+  .col-xl-auto {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .col-xl-1 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 8.33333%;
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+
+  .col-xl-2 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 16.66667%;
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+
+  .col-xl-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
+  .col-xl-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+
+  .col-xl-5 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 41.66667%;
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+
+  .col-xl-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .col-xl-7 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 58.33333%;
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+  }
+
+  .col-xl-8 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 66.66667%;
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+
+  .col-xl-9 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+
+  .col-xl-10 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 83.33333%;
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+  }
+
+  .col-xl-11 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 91.66667%;
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+
+  .col-xl-12 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-inner-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .row-inner-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 33.33333%;
+    max-height: 33.33333%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-bottom: 10px;
+  }
+
+  .row-inner-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-height: 50%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-bottom: 10px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 2.2rem;
+  }
+
+  .column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 2.2rem;
+  }
+
+  .row-inner {
+    height: 100%;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  .column-inner {
+    height: 100%;
+  }
+
+  .inner {
+    height: 100%;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+  }
+
+  .d--clear-padding{
+    padding-bottom: 0;
+  }
+}
+/***********************************************************************/
+.row {
+  // 时间卡片
+  .item-time_data:first-child {
+    margin-bottom: 20px;
+  }
+  .item-time_data {
+    h2 {
+      margin-bottom: 10px;
+      font-size: 23px;
+    }
+
+    h3 {
+      color: #585a61;
+      font-size: 20px;
+      letter-spacing: 0.2rem;
+      text-transform: capitalize;
+      white-space: nowrap;
+
+      span {
+        margin-left: 15px;
+        color: #c8c8c8;
+        font-size: 14px;
+      }
+    }
+  }
+
+  // 汇率卡片
+  .money-inner {
+    padding: 1.5rem;
+    padding-bottom: 0;
+  }
+  .money-container {
+    .moneyName-container {
+      .percent-container {
+        margin-bottom: 10px;
+        .percent {
+          font-size: 16px;
+          font-weight: 300;
+        }
+      }
+    }
+
+    .exchange {
+      text-align: center;
+      color: #787878;
+      font-size: 23px;
+
+      .exchange_1 {
+        margin: 0 0 10px 0;
+      }
+
+      .sync-icon {
+        width: 20px;
+        margin: 0 auto 10px;
+      }
+
+      .rmb {
+        margin: 0;
+
+        span {
+          font-size: 23px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .item-exchange_money:last-child {
+    margin-right: 0;
+  }
+
+  // 进度卡片
+  .progress-inner {
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    span {
+      float: right;
+    }
+
+    .progress-container:last-child {
+      .progress {
+        margin-bottom: 0;
+      }
+    }
+
+    .progress {
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+      height: 0.3rem;
+      border-radius: 0.25rem;
+      background-color: #eee;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: 0.25rem;
+      transition: width 0.5s ease;
+    }
+
+    span {
+      font-size: 15px;
+      margin-left: 10px;
+    }
+  }
+
+  // 网站浏览数据卡片
+  .website-inner {
+    padding-bottom: 0;
+  }
+  .item-website {
+    height: 400px;
+    min-height: 400px;
+  }
+
+  // 网站详细数据卡片
+  .origin-inner {
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+
+    h3 {
+      font-size: 8vh;
+      text-align: center;
+      color: #585a61; /* TODO:使用sassb变量*/
+      line-height: 1.5;
+    }
+
+    .m-weight1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: calc(100% - 18px);
+      .m-weight1__list{
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}

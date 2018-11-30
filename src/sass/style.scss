@@ -1,7 +1,6 @@
 @import 'base_variables';
 $left-sidebar-width: 178px;
 %h2-font {
-  font-family: $font-pingfang;
   font-size: 18px;
   font-weight: bold;
   color: #333;
@@ -19,6 +18,22 @@ $left-sidebar-width: 178px;
 html,
 body {
   height: 100%;
+  font-size: 13px;
+  font-weight: 300;
+  font-family: $font-poppins;
+}
+
+p{
+  margin: 0;
+}
+
+a{
+  color: #222222;
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
 }
 
 .wrapper {
@@ -49,6 +64,35 @@ body {
 
 .icon-caret-up-solid::before{
   content:"\e904";
+}
+
+.icon-caret-down-solid::before{
+  content:"\e906";
+}
+
+.d--bg-info{
+  background-color: $ColorInfo;
+}
+.d--bg-danger{
+  background-color: $ColorDanger;
+}
+.d--bg-success{
+  background-color: $ColorSuccess;
+}
+.d--color-info{
+  color: $ColorInfo;
+}
+.d--color-danger{
+  color: $ColorDanger;
+}
+.d--color-success{
+  color: $ColorSuccess;
+}
+
+.d--font-h2{
+  font-size: 18px;
+  color: #3f4047;
+  font-weight: 400;
 }
 
 // 左边栏
@@ -86,11 +130,12 @@ body {
         position: relative;
 
         span{
-          font-family: $font-icomoon;
+          // font-family: $font-icomoon;
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%,-50%);
+          font-size: 17px;
         }
       }
 
@@ -108,6 +153,7 @@ body {
 
 // 主栏
 .main-panel {
+  height: 100%;
   background-color: $bgColor;
   overflow: hidden;
 
@@ -155,23 +201,19 @@ body {
 
       h2 {
         margin-bottom: 10px;
-        color: #b9b9b9;
-        font-family: $font-pingfang;
-        font-size: 20px;
-        font-weight: normal;
+        font-size: 23px;
       }
 
       h3 {
-        font-family: $font-dosis;
-        font-size: 30px;
-        font-weight: normal;
+        color: #585a61;
+        font-size: 20px;
         letter-spacing: 3px;
         text-transform: capitalize;
 
         span {
           margin-left: 15px;
           color: #c8c8c8;
-          font-size: 25px;
+          font-size: 14px;
         }
       }
     }
@@ -200,38 +242,20 @@ body {
         .moneyName-container {
           width: 100px;
           margin: 0 auto;
-          h2 {
-            @extend %h2-font;
-            letter-spacing: 1px;
-          }
 
           .percent-container {
             margin-bottom: 10px;
 
             .percent {
-              font-family: $font-dosis;
               font-size: 16px;
-              font-weight: normal;
+              font-weight: 300;
             }
           }
-        }
-
-        .data-up {
-          color: $dataUpColor;
-        }
-
-        .data-down {
-          color: $dataDownColor;
-        }
-
-        .arrow-down {
-          transform: rotate(180deg);
         }
 
         .exchange {
           text-align: center;
           color: #787878;
-          font-family: $font-dosis;
           font-size: 23px;
 
           .exchange_1 {
@@ -243,15 +267,10 @@ body {
             margin: 0 auto 20px;
           }
 
-
-
           .rmb {
-            color: #2484f1;
-            font-size: 17px;
             margin: 0;
 
             span {
-              margin-left: 8px;
               font-size: 23px;
               font-weight: 500;
             }
@@ -276,20 +295,36 @@ body {
       left: 50%;
       transform: translate(-50%, -50%);
       width: 80%;
-      font-family: $font-pingfang;
     }
 
     p {
       margin: 0;
+      font-size: 16px;
     }
 
-    .progress-container:not(:last-child) {
-      margin-bottom: 30px;
+    span{
+      float:right;
     }
 
-    .progress-bar {
-      width: 70%;
-      height: 5px;
+    .progress-container:last-child {
+      .progress{
+        margin-bottom: 0;
+      }
+    }
+
+    .progress {
+      margin-top: .5rem;
+      margin-bottom: 3rem;
+      height: 0.3rem;
+      border-radius: .25rem;
+      background-color: #eee;
+    }
+
+    .progress-bar{
+      width: 0%;
+      height: 100%;
+      border-radius: .25rem;
+      transition: width .5s ease;
     }
 
     span {
@@ -348,7 +383,7 @@ body {
         }
 
         h3 {
-          font-family: $font-pingfang;
+          // font-family: $font-pingfang;
           font-size: 12vh;
           font-weight: normal;
           text-align: center;

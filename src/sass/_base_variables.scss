@@ -1,13 +1,16 @@
 $bgColor: #EBECF2;
 $iconActiveColor: #383838;
 $iconColor: #d4d4d4;
-$dataUpColor: #69de6d;
-$dataDownColor: #fc3e3e;
+$ColorInfo: #36a3f7 !important;
+$ColorDanger: #f4516c !important;
+$ColorSuccess:#34bfa3 !important;
+
 $font-dosis: Dosis, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue',
   Helvetica, Arial, sans-serif;
 $font-pingfang: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica,
   Arial, sans-serif;
 $font-icomoon: 'icomoon';
+$font-poppins: 'Poppins', sans-serif;
 @font-face {
   font-family: 'Dosis';
   src: url('../assets/fonts/Dosis-Book.ttf');
