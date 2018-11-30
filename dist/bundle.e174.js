@@ -103642,14 +103642,17 @@ exports.registerPainter = registerPainter;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/style.scss */ "./src/sass/style.scss");
 /* harmony import */ var _sass_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./css/normalize.css */ "./src/css/normalize.css");
-/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_normalize_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
-/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_main_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/echrts-theme.js */ "./src/js/echrts-theme.js");
-/* harmony import */ var _js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _js_echrts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/echrts.js */ "./src/js/echrts.js");
-/* harmony import */ var _js_echrts_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_echrts_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _sass_col_refactor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sass/col-refactor.scss */ "./src/sass/col-refactor.scss");
+/* harmony import */ var _sass_col_refactor_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_sass_col_refactor_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./css/normalize.css */ "./src/css/normalize.css");
+/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_normalize_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
+/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_main_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/echrts-theme.js */ "./src/js/echrts-theme.js");
+/* harmony import */ var _js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _js_echrts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/echrts.js */ "./src/js/echrts.js");
+/* harmony import */ var _js_echrts_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_echrts_js__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -104165,13 +104168,16 @@ var viewIn7DaysOption = {
     data: ["浏览量"]
   },
   xAxis: {
+    type: 'category',
     data: ["7天前", "6天前", "5天前", "4天前", "3天前", "昨天", "今天"]
   },
-  yAxis: {},
+  yAxis: {
+    type: 'value'
+  },
   series: [{
-    name: "浏览量",
-    type: "bar",
-    data: [5, 4, 10, 25, 17, 32, 16]
+    data: [5, 4, 10, 25, 17, 32, 16],
+    type: 'line',
+    smooth: true
   }]
 }; // 浏览量分类
 
@@ -104271,8 +104277,11 @@ var doc = document,
   date: doc.getElementById('date'),
   weather: doc.getElementById('weather'),
   yearProgressElem: doc.getElementById('yearProgress'),
+  yearProgressBar: doc.getElementById('yearProgressBar'),
   monthProgressElem: doc.getElementById('monthProgress'),
+  monthProgressBar: doc.getElementById('monthProgressBar'),
   weekProgressElem: doc.getElementById('weekProgress'),
+  weekProgressBar: doc.getElementById('weekProgressBar'),
   USDPrice: doc.getElementById('USD-price'),
   USDPercent: doc.getElementById('USD-percent'),
   BTCPercent: doc.getElementById('BTC-percent'),
@@ -104528,22 +104537,22 @@ function handlePrice(res) {
     switch (priceData[i].symbol) {
       case 'BTC':
         //priceBTC=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[0] = ['BTC', priceDataCache.price.toFixed(2), priceDataCache.percent_change_24h];
+        priceTotal[0] = ['BTC', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
       case 'BCH':
         //priceBCH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[1] = ['BCH', priceDataCache.price.toFixed(2), priceDataCache.percent_change_24h];
+        priceTotal[1] = ['BCH', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
       case 'ETH':
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[2] = ['ETH', priceDataCache.price.toFixed(2), priceDataCache.percent_change_24h];
+        priceTotal[2] = ['ETH', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
       case 'LTC':
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[3] = ['LTC', priceDataCache.price.toFixed(2), priceDataCache.percent_change_24h];
+        priceTotal[3] = ['LTC', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
       default:
@@ -104558,10 +104567,10 @@ function handlePrice(res) {
         dataString.BTCPercent.innerText = priceTotal[_i][2] + '%';
 
         if (priceTotal[_i][2] < 0) {
-          dataString.BTCPercent.previousElementSibling.classList.add('arrow-down');
-          dataString.BTCPercent.parentElement.classList.add('data-down');
+          dataString.BTCPercent.previousElementSibling.classList.add('icon-caret-down-solid');
+          dataString.BTCPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.BTCPercent.parentElement.classList.add('data-up');
+          dataString.BTCPercent.parentElement.classList.add('d--color-success');
         }
 
         break;
@@ -104571,10 +104580,10 @@ function handlePrice(res) {
         dataString.BCHPercent.innerText = priceTotal[_i][2] + '%';
 
         if (priceTotal[_i][2] < 0) {
-          dataString.BCHPercent.previousElementSibling.classList.add('arrow-down');
-          dataString.BCHPercent.parentElement.classList.add('data-down');
+          dataString.BCHPercent.previousElementSibling.classList.add('icon-caret-down-solid');
+          dataString.BCHPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.BCHPercent.parentElement.classList.add('data-up');
+          dataString.BCHPercent.parentElement.classList.add('d--color-success');
         }
 
         break;
@@ -104584,10 +104593,10 @@ function handlePrice(res) {
         dataString.ETHPercent.innerText = priceTotal[_i][2] + '%';
 
         if (priceTotal[_i][2] < 0) {
-          dataString.ETHPercent.previousElementSibling.classList.add('arrow-down');
-          dataString.ETHPercent.parentElement.classList.add('data-down');
+          dataString.ETHPercent.previousElementSibling.classList.add('icon-caret-down-solid');
+          dataString.ETHPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.ETHPercent.parentElement.classList.add('data-up');
+          dataString.ETHPercent.parentElement.classList.add('d--color-success');
         }
 
         break;
@@ -104597,10 +104606,10 @@ function handlePrice(res) {
         dataString.LTCPercent.innerText = priceTotal[_i][2] + '%';
 
         if (priceTotal[_i][2] < 0) {
-          dataString.LTCPercent.previousElementSibling.classList.add('arrow-down');
-          dataString.LTCPercent.parentElement.classList.add('data-down');
+          dataString.LTCPercent.previousElementSibling.classList.add('icon-caret-down-solid');
+          dataString.LTCPercent.parentElement.classList.add('d--color-danger');
         } else {
-          dataString.LTCPercent.parentElement.classList.add('data-up');
+          dataString.LTCPercent.parentElement.classList.add('d--color-success');
         }
 
         break;
@@ -104631,10 +104640,10 @@ function handleUSDPrice(res) {
   var usdPricePercent = (usdPriceToday - usdPriceYesterday) / usdPriceToday;
 
   if (usdPricePercent < 0) {
-    dataString.USDPercent.previousElementSibling.classList.add('arrow-down');
-    dataString.USDPercent.parentElement.classList.add('data-down');
+    dataString.USDPercent.previousElementSibling.classList.add('icon-caret-down-solid');
+    dataString.USDPercent.parentElement.classList.add('d--color-danger');
   } else {
-    dataString.USDPercent.parentElement.classList.add('data-up');
+    dataString.USDPercent.parentElement.classList.add('d--color-success');
   }
 
   dataString.USDPercent.innerText = usdPricePercent.toFixed(4) + '%';
@@ -104653,10 +104662,10 @@ function handleUSDPrice(res) {
 
 function handleNews(res) {
   var news = res.news;
-  var newsElem = '';
+  var newsElem = ''; // 只显示7条新闻
 
-  for (var i = 0; i < news.length; i++) {
-    newsElem += '<a target="_blank"  href="' + news[i].link + '">' + (i + 1) + '. ' + news[i].title + '</a>';
+  for (var i = 0; i < 7; i++) {
+    newsElem += '<a class="m-weight1__item" target="_blank"  href="' + news[i].link + '">' + (i + 1) + '. ' + news[i].title + '</a>';
   }
 
   dataString.newsContainer.innerHTML = newsElem;
@@ -104677,8 +104686,8 @@ function handleHistory(res) {
   var historyElem = '';
 
   for (var i = 0; i < history.length; i++) {
-    historyElem += '<p>' + history[i].year + ' ' + history[i].title + '</p>';
-    if (i == 4) break;
+    historyElem += '<p class="m-weight1__item">' + history[i].year + ' ' + history[i].title + '</p>';
+    if (i == 5) break;
   }
 
   dataString.historyContainer.innerHTML = historyElem;
@@ -104690,12 +104699,23 @@ var initialYear = new Date(currentYear, 0, 1);
 var yearProgress = Math.floor((date - initialYear) / (1000 * 60 * 60 * 24) * 100 / 365),
     monthProgress = Math.floor(date.getDate() / date.getMonthDays() * 100);
 weekProgress = Math.floor(date.getDay() / 7 * 100);
-yearProgressElem.value = yearProgress;
-yearProgressElem.nextElementSibling.innerText = yearProgress + '%';
-monthProgressElem.value = monthProgress;
-monthProgressElem.nextElementSibling.innerText = monthProgress + '%';
-weekProgressElem.value = weekProgress;
-weekProgressElem.nextElementSibling.innerText = weekProgress + '%';
+dataString.yearProgressElem.innerText = yearProgress + '%';
+dataString.yearProgressBar.style.width = yearProgress + '%';
+dataString.monthProgressElem.innerText = monthProgress + '%';
+dataString.monthProgressBar.style.width = monthProgress + '%';
+dataString.weekProgressElem.innerText = weekProgress + '%';
+dataString.weekProgressBar.style.width = weekProgress + '%';
+
+/***/ }),
+
+/***/ "./src/sass/col-refactor.scss":
+/*!************************************!*\
+  !*** ./src/sass/col-refactor.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -104711,4 +104731,4 @@ weekProgressElem.nextElementSibling.innerText = weekProgress + '%';
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.bc78.js.map
+//# sourceMappingURL=bundle.e174.js.map
