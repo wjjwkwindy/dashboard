@@ -11,17 +11,18 @@ var viewIn7DaysOption = {
   legend: {
     data: ["浏览量"]
   },
-  xAxis: {
+xAxis: {
+    type: 'category',
     data: ["7天前", "6天前", "5天前", "4天前", "3天前", "昨天", "今天"]
-  },
-  yAxis: {},
-  series: [
-    {
-      name: "浏览量",
-      type: "bar",
-      data: [5, 4, 10, 25, 17, 32, 16]
-    }
-  ]
+},
+yAxis: {
+    type: 'value'
+},
+series: [{
+    data: [5, 4, 10, 25, 17, 32, 16],
+    type: 'line',
+    smooth: true
+}]
 };
 
 // 浏览量分类
