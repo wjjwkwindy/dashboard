@@ -103647,11 +103647,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./css/normalize.css */ "./src/css/normalize.css");
 /* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_normalize_css__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
-/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_main_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/echrts-theme.js */ "./src/js/echrts-theme.js");
-/* harmony import */ var _js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_echrts_theme_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _js_echrts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/echrts.js */ "./src/js/echrts.js");
-/* harmony import */ var _js_echrts_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_echrts_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/module/echarts-theme.js */ "./src/js/module/echarts-theme.js");
+/* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/module/echarts.js */ "./src/js/module/echarts.js");
+/* harmony import */ var _js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -103662,10 +103661,104 @@ console.log('[index.js] 这里是打包文件入口-index.js');
 
 /***/ }),
 
-/***/ "./src/js/echrts-theme.js":
-/*!********************************!*\
-  !*** ./src/js/echrts-theme.js ***!
-  \********************************/
+/***/ "./src/js/main.js":
+/*!************************!*\
+  !*** ./src/js/main.js ***!
+  \************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/moduleFunctions */ "./src/js/module/moduleFunctions.js");
+/* harmony import */ var _module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/moduleUpdateView */ "./src/js/module/moduleUpdateView.js");
+/* harmony import */ var _module_variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module/variables */ "./src/js/module/variables.js");
+
+
+ // 处理天气请求
+
+var starWeatherRequest = function starWeatherRequest() {
+  var weatherUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["addUrlParam"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].weatherUrlBase, ["city", "key"], [_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].weatherCity, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].weatherKey]);
+  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(weatherUrl).then(function (res) {
+    console.log("[info] Get weather information succeed.");
+    sessionStorage.setItem("requestTime", Date.now());
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleWeather"])(res, "remote");
+  }).catch(function (error) {
+    console.log(error);
+    console.log("[error] 重置上次请求时间为0");
+    sessionStorage.setItem("requestTime", 0);
+  });
+}; // 页面载入时判断是否发起天气请求
+
+
+var lastRequestTime = sessionStorage.getItem("requestTime"),
+    restTime = 10,
+    // 请求间隔时间
+intervalTime; // 距离上次请求已过时间
+
+if (lastRequestTime) {
+  var now = Date.now();
+  intervalTime = (now - lastRequestTime) / (1000 * 60);
+  console.log("[info] 距离上次请求: " + intervalTime.toFixed(2) + "  分钟");
+
+  if (intervalTime <= restTime) {
+    // 据离上次请求小于"请求间隔时间"，读取 sessionStorage 中的数据
+    console.log("[info] 据离上次请求小于 " + restTime + " 分钟");
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleWeather"])(Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["getSessionStorage"])("weather"), "local");
+  } else {
+    // 据离上次请求大于"请求间隔时间"，发起天气请求
+    console.log("[info] 据离上次请求大于 " + restTime + " 分钟");
+    starWeatherRequest();
+  }
+} else {
+  starWeatherRequest();
+} // 获取货币走势
+
+
+(function () {
+  var priceUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["addUrlParam"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceUrlBase, ["CMC_PRO_API_KEY", "start", "limit", "convert"], [_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceKey, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceStart, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceLimit, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceConvert]);
+  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(priceUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handlePrice"])(res);
+  }).catch(function (error) {
+    console.log(error);
+  });
+})(); // 获取美元汇率
+
+
+var usdPriceUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["addUrlParam"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].usdPriceUrlBase, ["date", "endDate"], [_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].usdPriceStartDate, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].usdPriceEndDate]);
+
+(function () {
+  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(usdPriceUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleUSDPrice"])(res); // console.log(res);
+  }).catch(function (error) {
+    console.log("[error] " + error);
+  });
+})(); // 获取新闻
+
+
+(function () {
+  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].newsUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleNews"])(res);
+  }).catch(function (error) {
+    console.log("[error]" + error);
+  });
+})(); // 获取历史上的今天
+
+
+(function () {
+  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].todayInHistoryUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleHistory"])(res);
+  }).catch(function (error) {
+    console.log("[error]" + error);
+  });
+})();
+
+/***/ }),
+
+/***/ "./src/js/module/echarts-theme.js":
+/*!****************************************!*\
+  !*** ./src/js/module/echarts-theme.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -104147,10 +104240,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/js/echrts.js":
-/*!**************************!*\
-  !*** ./src/js/echrts.js ***!
-  \**************************/
+/***/ "./src/js/module/echarts.js":
+/*!**********************************!*\
+  !*** ./src/js/module/echarts.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -104243,58 +104336,20 @@ viewByBrowers.setOption(viewByBrowersOption);
 
 /***/ }),
 
-/***/ "./src/js/main.js":
-/*!************************!*\
-  !*** ./src/js/main.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./src/js/module/moduleFunctions.js":
+/*!******************************************!*\
+  !*** ./src/js/module/moduleFunctions.js ***!
+  \******************************************/
+/*! exports provided: addUrlParam, setSessionStorage, getSessionStorage, initialRequest */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var doc = document,
-    weatherUrlBase = 'https://free-api.heweather.com/v5/weather',
-    weatherKey = '987bc68871c94142ae815b39a1081e63',
-    weatherCity = 'chengdu',
-    priceUrlBase = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-    priceKey = '297fbec3-e209-40f1-9efa-1a067af4e3fe',
-    priceStart = 1,
-    priceLimit = 7,
-    priceConvert = 'CNY',
-    usdPriceUrlBase = 'https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra',
-    newsUrl = 'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/news#!method=get',
-    todayInHistoryUrl = 'https://easy-mock.com/mock/5b2915fb6e532a252327f928/example/history#!method=get',
-    weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    weatherDescription = [{
-  chinese: '阴',
-  english: 'cloudy'
-}, {
-  chinese: '多云',
-  english: 'partly cloudy'
-}, {
-  chinese: '晴',
-  english: 'sunny'
-}],
-    dataString = {
-  date: doc.getElementById('date'),
-  weather: doc.getElementById('weather'),
-  yearProgressElem: doc.getElementById('yearProgress'),
-  yearProgressBar: doc.getElementById('yearProgressBar'),
-  monthProgressElem: doc.getElementById('monthProgress'),
-  monthProgressBar: doc.getElementById('monthProgressBar'),
-  weekProgressElem: doc.getElementById('weekProgress'),
-  weekProgressBar: doc.getElementById('weekProgressBar'),
-  USDPrice: doc.getElementById('USD-price'),
-  USDPercent: doc.getElementById('USD-percent'),
-  BTCPercent: doc.getElementById('BTC-percent'),
-  BTCPrice: doc.getElementById('BTC-price'),
-  BCHPercent: doc.getElementById('BCH-percent'),
-  BCHPrice: doc.getElementById('BCH-price'),
-  ETHPercent: doc.getElementById('ETH-percent'),
-  ETHPrice: doc.getElementById('ETH-price'),
-  LTCPercent: doc.getElementById('LTC-percent'),
-  LTCPrice: doc.getElementById('LTC-price'),
-  newsContainer: doc.getElementById('news'),
-  historyContainer: doc.getElementById('history')
-}; // 获取某个月份总天数
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addUrlParam", function() { return addUrlParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSessionStorage", function() { return setSessionStorage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSessionStorage", function() { return getSessionStorage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialRequest", function() { return initialRequest; });
+ // 获取某个月份总天数
 
 Date.prototype.getMonthDays = function () {
   var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
@@ -104303,12 +104358,12 @@ Date.prototype.getMonthDays = function () {
 
 
 Date.prototype.getDateParam = function (separator) {
-  var separateDate = '';
+  var separateDate = "";
   separateDate += this.getFullYear() + separator;
   separateDate += this.getMonth() + 1 + separator;
 
   if (this.getDate() < 10) {
-    separateDate += '0' + this.getDate();
+    separateDate += "0" + this.getDate();
   } else {
     separateDate += this.getDate();
   }
@@ -104319,8 +104374,8 @@ Date.prototype.getDateParam = function (separator) {
 
 function addUrlParam(url, name, value) {
   for (var i = 0; i < name.length; i++) {
-    url += url.indexOf('?') == -1 ? '?' : '&';
-    url += encodeURIComponent(name[i]) + '=' + encodeURIComponent(value[i]);
+    url += url.indexOf("?") == -1 ? "?" : "&";
+    url += encodeURIComponent(name[i]) + "=" + encodeURIComponent(value[i]);
   }
 
   return url;
@@ -104328,11 +104383,11 @@ function addUrlParam(url, name, value) {
 
 
 function setSessionStorage(key, value) {
-  var str = '';
+  var str = "";
   sessionStorage.removeItem(key);
 
   for (var i = 0; i < value.length; i++) {
-    str += value[i] + '&';
+    str += value[i] + "&";
   }
 
   str = str.slice(0, str.length - 1);
@@ -104342,19 +104397,19 @@ function setSessionStorage(key, value) {
 
 function getSessionStorage(key) {
   var str = sessionStorage.getItem(key);
-  return str.split('&');
+  return str.split("&");
 } // 初始化请求
 
 
 function initialRequest(url) {
-  console.log('[info] ' + url);
+  console.log("[info] " + url);
   return new Promise(function (resolve, reject) {
     //reject(new Error('故意的'));
     var client = new XMLHttpRequest();
-    client.open('GET', url);
+    client.open("GET", url);
     client.onreadystatechange = handler;
-    client.responseType = 'json';
-    client.setRequestHeader('Accept', 'application/json');
+    client.responseType = "json";
+    client.setRequestHeader("Accept", "application/json");
     client.send();
 
     function handler() {
@@ -104370,157 +104425,146 @@ function initialRequest(url) {
     }
   });
 } // 初始化天气请求
+// function initialWeatherRequest() {
+//   const weatherUrl = addUrlParam(
+//     weatherUrlBase,
+//     ["city", "key"],
+//     [weatherCity, weatherKey]
+//   );
+//   console.log("[info] " + weatherUrl);
+//   return new Promise((resolve, reject) => {
+//     const now = Date.now();
+//     let client = new XMLHttpRequest();
+//     client.open("GET", weatherUrl);
+//     client.onreadystatechange = handler;
+//     client.responseType = "json";
+//     client.setRequestHeader("Accept", "application/json");
+//     client.send();
+//     function handler() {
+//       if (this.readyState !== 4) {
+//         return;
+//       }
+//       if (this.status === 200) {
+//         resolve(this.response);
+//       } else {
+//         reject(new Error(this.statusText));
+//       }
+//     }
+//   });
+// }
+// 初始化货币走势请求
+// function initialPriceRequest() {
+//   const priceUrl = addUrlParam(
+//     priceUrlBase,
+//     ['CMC_PRO_API_KEY', 'start', 'limit', 'convert'],
+//     [priceKey, priceStart, priceLimit, priceConvert]
+//   );
+//   console.log('[info] ' + priceUrl);
+//   return new Promise((resolve, reject) => {
+//     const now = Date.now();
+//     let client = new XMLHttpRequest();
+//     client.open('GET', priceUrl);
+//     client.onreadystatechange = handler;
+//     client.responseType = 'json';
+//     client.setRequestHeader('Accept', 'application/json');
+//     client.send();
+//     function handler() {
+//       if (this.readyState !== 4) {
+//         return;
+//       }
+//       if (this.status === 200) {
+//         resolve(this.response);
+//       } else {
+//         reject(new Error(this.statusText));
+//       }
+//     }
+//   });
+// }
+
+/***/ }),
+
+/***/ "./src/js/module/moduleUpdateView.js":
+/*!*******************************************!*\
+  !*** ./src/js/module/moduleUpdateView.js ***!
+  \*******************************************/
+/*! exports provided: handleWeather, handlePrice, handleUSDPrice, handleNews, handleHistory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleWeather", function() { return handleWeather; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handlePrice", function() { return handlePrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleUSDPrice", function() { return handleUSDPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleNews", function() { return handleNews; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleHistory", function() { return handleHistory; });
+/* harmony import */ var _moduleFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleFunctions */ "./src/js/module/moduleFunctions.js");
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./variables */ "./src/js/module/variables.js");
 
 
-function initialWeatherRequest() {
-  var weatherUrl = addUrlParam(weatherUrlBase, ['city', 'key'], [weatherCity, weatherKey]);
-  console.log('[info] ' + weatherUrl);
-  return new Promise(function (resolve, reject) {
-    var now = Date.now();
-    var client = new XMLHttpRequest();
-    client.open('GET', weatherUrl);
-    client.onreadystatechange = handler;
-    client.responseType = 'json';
-    client.setRequestHeader('Accept', 'application/json');
-    client.send();
-
-    function handler() {
-      if (this.readyState !== 4) {
-        return;
-      }
-
-      if (this.status === 200) {
-        resolve(this.response);
-      } else {
-        reject(new Error(this.statusText));
-      }
-    }
-  });
-} // 处理天气请求
-
-
-var starWeatherRequest = function starWeatherRequest() {
-  var weatherUrl = addUrlParam(weatherUrlBase, ['city', 'key'], [weatherCity, weatherKey]);
-  initialRequest(weatherUrl).then(function (res) {
-    console.log('[info] Get weather information succeed.');
-    sessionStorage.setItem('requestTime', Date.now());
-    handleWeather(res, 'remote');
-  }).catch(function (error) {
-    console.log(error);
-    console.log('[error] 重置上次请求时间为0');
-    sessionStorage.setItem('requestTime', 0);
-  });
-}; // 设置时间
-
+ // 页面载入时设置"时间进度"和"日期"
 
 var date = new Date();
 
-dataString.date.innerHTML = function () {
-  var today = '';
-  today += date.getDateParam('.');
-  today += '<span>' + weekday[date.getDay()] + '</span>';
-  return today;
-}(); // 页面载入时判断是否发起天气请求
+(function () {
+  // 设置时间进度
+  var currentYear = date.getFullYear();
+  var initialYear = new Date(currentYear, 0, 1);
+  var yearProgress = Math.floor((date - initialYear) / (1000 * 60 * 60 * 24) * 100 / 365),
+      monthProgress = Math.floor(date.getDate() / date.getMonthDays() * 100),
+      weekProgress = Math.floor(date.getDay() / 7 * 100);
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].yearProgressElem.innerText = yearProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].yearProgressBar.style.width = yearProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].monthProgressElem.innerText = monthProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].monthProgressBar.style.width = monthProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].weekProgressElem.innerText = weekProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].weekProgressBar.style.width = weekProgress + "%"; // 设置日期
 
-
-var lastRequestTime = sessionStorage.getItem('requestTime'),
-    restTime = 10,
-    // 请求间隔时间
-intervalTime; // 距离上次请求已过时间
-
-if (lastRequestTime) {
-  var now = Date.now();
-  intervalTime = (now - lastRequestTime) / (1000 * 60);
-  console.log('[info] 距离上次请求: ' + intervalTime.toFixed(2) + '  分钟');
-
-  if (intervalTime <= restTime) {
-    // 据离上次请求小于"请求间隔时间"，读取 sessionStorage 中的数据
-    console.log('[info] 据离上次请求小于 ' + restTime + ' 分钟');
-    handleWeather(getSessionStorage('weather'), 'local');
-  } else {
-    // 据离上次请求大于"请求间隔时间"，发起天气请求
-    console.log('[info] 据离上次请求大于 ' + restTime + ' 分钟');
-    starWeatherRequest();
-  }
-} else {
-  starWeatherRequest();
-} // 处理天气请求
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].date.innerHTML = function () {
+    var today = "";
+    today += date.getDateParam(".");
+    today += "<span>" + _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weekday[date.getDay()] + "</span>";
+    return today;
+  }();
+})(); // 处理天气请求
 
 
 function handleWeather(res) {
-  var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'local';
+  var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "local";
   var weatherFl, weatherCond, weatherPcpn;
 
-  if (origin == 'remote') {
+  if (origin == "remote") {
     var weatherRes = res,
         weatherCurrent = weatherRes.HeWeather5[0],
         weatherNow = weatherCurrent.now;
-    weatherFl = weatherNow.fl + '° ';
+    weatherFl = weatherNow.fl + "° ";
     weatherCond = weatherNow.cond.txt;
-    weatherPcpn = weatherNow.pcpn + '%';
-    setSessionStorage('weather', [weatherFl, weatherCond, weatherPcpn]);
-    console.log('[info] 远端数据');
+    weatherPcpn = weatherNow.pcpn + "%";
+    Object(_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["setSessionStorage"])("weather", [weatherFl, weatherCond, weatherPcpn]);
+    console.log("[info] 远端数据");
   } else {
     var localWeatherRes = res;
     weatherFl = localWeatherRes[0];
     weatherCond = localWeatherRes[1];
     weatherPcpn = localWeatherRes[2];
-    console.log('[info] 本地数据');
+    console.log("[info] 本地数据");
   }
 
   weather.innerHTML = weatherFl;
 
-  for (var i = 0; i < weatherDescription.length; i++) {
-    if (weatherDescription[i].chinese == weatherCond) {
-      weather.innerHTML += weatherDescription[i].english + ' ';
+  for (var i = 0; i < _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription.length; i++) {
+    if (_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription[i].chinese == weatherCond) {
+      weather.innerHTML += _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription[i].english + " ";
       break;
     }
 
-    if (i == weatherDescription.length) {
-      weather.innerHTML += weatherCond + ' ';
+    if (i == _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription.length) {
+      weather.innerHTML += weatherCond + " ";
     }
   }
 
   weather.innerHTML += weatherPcpn;
-  weather.innerHTML += '<span>' + weatherCity + '</span>';
-} // 初始化货币走势请求
-
-
-function initialPriceRequest() {
-  var priceUrl = addUrlParam(priceUrlBase, ['CMC_PRO_API_KEY', 'start', 'limit', 'convert'], [priceKey, priceStart, priceLimit, priceConvert]);
-  console.log('[info] ' + priceUrl);
-  return new Promise(function (resolve, reject) {
-    var now = Date.now();
-    var client = new XMLHttpRequest();
-    client.open('GET', priceUrl);
-    client.onreadystatechange = handler;
-    client.responseType = 'json';
-    client.setRequestHeader('Accept', 'application/json');
-    client.send();
-
-    function handler() {
-      if (this.readyState !== 4) {
-        return;
-      }
-
-      if (this.status === 200) {
-        resolve(this.response);
-      } else {
-        reject(new Error(this.statusText));
-      }
-    }
-  });
-} // 获取货币走势
-
-
-(function () {
-  var priceUrl = addUrlParam(priceUrlBase, ['CMC_PRO_API_KEY', 'start', 'limit', 'convert'], [priceKey, priceStart, priceLimit, priceConvert]);
-  initialRequest(priceUrl).then(function (res) {
-    handlePrice(res);
-  }).catch(function (error) {
-    console.log(error);
-  });
-})(); // 处理货币走势
+  weather.innerHTML += "<span>" + _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherCity + "</span>";
+} // 处理货币走势
 
 
 function handlePrice(res) {
@@ -104535,24 +104579,24 @@ function handlePrice(res) {
     priceDataCache = priceData[i].quote.CNY;
 
     switch (priceData[i].symbol) {
-      case 'BTC':
+      case "BTC":
         //priceBTC=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[0] = ['BTC', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
+        priceTotal[0] = ["BTC", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
-      case 'BCH':
+      case "BCH":
         //priceBCH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[1] = ['BCH', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
+        priceTotal[1] = ["BCH", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
-      case 'ETH':
+      case "ETH":
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[2] = ['ETH', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
+        priceTotal[2] = ["ETH", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
-      case 'LTC':
+      case "LTC":
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[3] = ['LTC', priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
+        priceTotal[3] = ["LTC", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
 
       default:
@@ -104562,149 +104606,168 @@ function handlePrice(res) {
 
   for (var _i = 0; _i < priceTotal.length; _i++) {
     switch (priceTotal[_i][0]) {
-      case 'BTC':
-        dataString.BTCPrice.innerText = priceTotal[_i][1];
-        dataString.BTCPercent.innerText = priceTotal[_i][2] + '%';
+      case "BTC":
+        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPrice.innerText = priceTotal[_i][1];
+        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.innerText = priceTotal[_i][2] + "%";
 
         if (priceTotal[_i][2] < 0) {
-          dataString.BTCPercent.previousElementSibling.classList.add('icon-caret-down-solid');
-          dataString.BTCPercent.parentElement.classList.add('d--color-danger');
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.parentElement.classList.add("d--color-danger");
         } else {
-          dataString.BTCPercent.parentElement.classList.add('d--color-success');
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.parentElement.classList.add("d--color-success");
         }
 
         break;
 
-      case 'BCH':
-        dataString.BCHPrice.innerText = priceTotal[_i][1];
-        dataString.BCHPercent.innerText = priceTotal[_i][2] + '%';
+      case "BCH":
+        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPrice.innerText = priceTotal[_i][1];
+        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.innerText = priceTotal[_i][2] + "%";
 
         if (priceTotal[_i][2] < 0) {
-          dataString.BCHPercent.previousElementSibling.classList.add('icon-caret-down-solid');
-          dataString.BCHPercent.parentElement.classList.add('d--color-danger');
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.parentElement.classList.add("d--color-danger");
         } else {
-          dataString.BCHPercent.parentElement.classList.add('d--color-success');
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.parentElement.classList.add("d--color-success");
         }
 
         break;
 
-      case 'ETH':
-        dataString.ETHPrice.innerText = priceTotal[_i][1];
-        dataString.ETHPercent.innerText = priceTotal[_i][2] + '%';
+      case "ETH":
+        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPrice.innerText = priceTotal[_i][1];
+        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.innerText = priceTotal[_i][2] + "%";
 
         if (priceTotal[_i][2] < 0) {
-          dataString.ETHPercent.previousElementSibling.classList.add('icon-caret-down-solid');
-          dataString.ETHPercent.parentElement.classList.add('d--color-danger');
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.parentElement.classList.add("d--color-danger");
         } else {
-          dataString.ETHPercent.parentElement.classList.add('d--color-success');
+          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.parentElement.classList.add("d--color-success");
         }
 
         break;
-
-      case 'LTC':
-        dataString.LTCPrice.innerText = priceTotal[_i][1];
-        dataString.LTCPercent.innerText = priceTotal[_i][2] + '%';
-
-        if (priceTotal[_i][2] < 0) {
-          dataString.LTCPercent.previousElementSibling.classList.add('icon-caret-down-solid');
-          dataString.LTCPercent.parentElement.classList.add('d--color-danger');
-        } else {
-          dataString.LTCPercent.parentElement.classList.add('d--color-success');
-        }
-
-        break;
+      // case "LTC":
+      //   dataString.LTCPrice.innerText = priceTotal[i][1];
+      //   dataString.LTCPercent.innerText = priceTotal[i][2] + "%";
+      //   if (priceTotal[i][2] < 0) {
+      //     dataString.LTCPercent.previousElementSibling.classList.add(
+      //       "icon-caret-down-solid"
+      //     );
+      //     dataString.LTCPercent.parentElement.classList.add("d--color-danger");
+      //   } else {
+      //     dataString.LTCPercent.parentElement.classList.add("d--color-success");
+      //   }
+      //   break;
 
       default:
         break;
     }
   }
-} // 获取美元汇率
-
-
-var usdPriceStartDate = new Date(Date.now() - 86400000).getDateParam('-'),
-    usdPriceEndDate = new Date(Date.now()).getDateParam('-');
-var usdPriceUrl = addUrlParam(usdPriceUrlBase, ['date', 'endDate'], [usdPriceStartDate, usdPriceEndDate]);
-
-(function () {
-  initialRequest(usdPriceUrl).then(function (res) {
-    handleUSDPrice(res); // console.log(res);
-  }).catch(function (error) {
-    console.log('[error] ' + error);
-  });
-})(); // 处理美元汇率
+} // 处理美元汇率
 
 
 function handleUSDPrice(res) {
-  var usdPriceYesterday = res.USD_CNY[usdPriceStartDate];
-  var usdPriceToday = res.USD_CNY[usdPriceEndDate];
+  var usdPriceYesterday = res.USD_CNY[_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceStartDate];
+  var usdPriceToday = res.USD_CNY[_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceEndDate];
   var usdPricePercent = (usdPriceToday - usdPriceYesterday) / usdPriceToday;
 
   if (usdPricePercent < 0) {
-    dataString.USDPercent.previousElementSibling.classList.add('icon-caret-down-solid');
-    dataString.USDPercent.parentElement.classList.add('d--color-danger');
+    _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+    _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.parentElement.classList.add("d--color-danger");
   } else {
-    dataString.USDPercent.parentElement.classList.add('d--color-success');
+    _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.parentElement.classList.add("d--color-success");
   }
 
-  dataString.USDPercent.innerText = usdPricePercent.toFixed(4) + '%';
-  dataString.USDPrice.innerText = usdPriceToday.toFixed(2);
-} // 获取新闻
-
-
-(function () {
-  initialRequest(newsUrl).then(function (res) {
-    handleNews(res);
-  }).catch(function (error) {
-    console.log('[error]' + error);
-  });
-})(); // 处理新闻
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.innerText = usdPricePercent.toFixed(4) + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPrice.innerText = usdPriceToday.toFixed(2);
+} // 处理新闻
 
 
 function handleNews(res) {
   var news = res.news;
-  var newsElem = ''; // 只显示7条新闻
+  var newsElem = ""; // 只显示7条新闻
 
   for (var i = 0; i < 7; i++) {
-    newsElem += '<a class="m-weight1__item" target="_blank"  href="' + news[i].link + '">' + (i + 1) + '. ' + news[i].title + '</a>';
+    newsElem += '<a class="m-weight1__item" target="_blank"  href="' + news[i].link + '">' + (i + 1) + ". " + news[i].title + "</a>";
   }
 
-  dataString.newsContainer.innerHTML = newsElem;
-} // 获取历史上的今天
-
-
-(function () {
-  initialRequest(todayInHistoryUrl).then(function (res) {
-    handleHistory(res);
-  }).catch(function (error) {
-    console.log('[error]' + error);
-  });
-})(); // 处理历史上的今天
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].newsContainer.innerHTML = newsElem;
+} // 处理历史上的今天
 
 
 function handleHistory(res) {
   var history = res.data;
-  var historyElem = '';
+  var historyElem = "";
 
   for (var i = 0; i < history.length; i++) {
-    historyElem += '<p class="m-weight1__item">' + history[i].year + ' ' + history[i].title + '</p>';
+    historyElem += '<p class="m-weight1__item">' + history[i].year + " " + history[i].title + "</p>";
     if (i == 5) break;
   }
 
-  dataString.historyContainer.innerHTML = historyElem;
-} // 计算时间进度
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].historyContainer.innerHTML = historyElem;
+}
 
+/***/ }),
 
-var currentYear = date.getFullYear();
-var initialYear = new Date(currentYear, 0, 1);
-var yearProgress = Math.floor((date - initialYear) / (1000 * 60 * 60 * 24) * 100 / 365),
-    monthProgress = Math.floor(date.getDate() / date.getMonthDays() * 100);
-weekProgress = Math.floor(date.getDay() / 7 * 100);
-dataString.yearProgressElem.innerText = yearProgress + '%';
-dataString.yearProgressBar.style.width = yearProgress + '%';
-dataString.monthProgressElem.innerText = monthProgress + '%';
-dataString.monthProgressBar.style.width = monthProgress + '%';
-dataString.weekProgressElem.innerText = weekProgress + '%';
-dataString.weekProgressBar.style.width = weekProgress + '%';
+/***/ "./src/js/module/variables.js":
+/*!************************************!*\
+  !*** ./src/js/module/variables.js ***!
+  \************************************/
+/*! exports provided: vb, dataString */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vb", function() { return vb; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataString", function() { return dataString; });
+
+var doc = document;
+var vb = {
+  weatherUrlBase: "https://free-api.heweather.com/v5/weather",
+  weatherKey: "987bc68871c94142ae815b39a1081e63",
+  weatherCity: "chengdu",
+  priceUrlBase: "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+  priceKey: "297fbec3-e209-40f1-9efa-1a067af4e3fe",
+  priceStart: 1,
+  priceLimit: 7,
+  priceConvert: "CNY",
+  usdPriceUrlBase: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra",
+  usdPriceStartDate: new Date(Date.now() - 86400000).getDateParam("-"),
+  usdPriceEndDate: new Date(Date.now()).getDateParam("-"),
+  newsUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/news#!method=get",
+  todayInHistoryUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/history#!method=get",
+  weekday: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  weatherDescription: [{
+    chinese: "阴",
+    english: "cloudy"
+  }, {
+    chinese: "多云",
+    english: "partly cloudy"
+  }, {
+    chinese: "晴",
+    english: "sunny"
+  }]
+},
+    dataString = {
+  date: doc.getElementById("date"),
+  weather: doc.getElementById("weather"),
+  yearProgressElem: doc.getElementById("yearProgress"),
+  yearProgressBar: doc.getElementById("yearProgressBar"),
+  monthProgressElem: doc.getElementById("monthProgress"),
+  monthProgressBar: doc.getElementById("monthProgressBar"),
+  weekProgressElem: doc.getElementById("weekProgress"),
+  weekProgressBar: doc.getElementById("weekProgressBar"),
+  USDPrice: doc.getElementById("USD-price"),
+  USDPercent: doc.getElementById("USD-percent"),
+  BTCPercent: doc.getElementById("BTC-percent"),
+  BTCPrice: doc.getElementById("BTC-price"),
+  BCHPercent: doc.getElementById("BCH-percent"),
+  BCHPrice: doc.getElementById("BCH-price"),
+  ETHPercent: doc.getElementById("ETH-percent"),
+  ETHPrice: doc.getElementById("ETH-price"),
+  LTCPercent: doc.getElementById("LTC-percent"),
+  LTCPrice: doc.getElementById("LTC-price"),
+  newsContainer: doc.getElementById("news"),
+  historyContainer: doc.getElementById("history")
+};
 
 /***/ }),
 
@@ -104731,4 +104794,4 @@ dataString.weekProgressBar.style.width = weekProgress + '%';
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.e174.js.map
+//# sourceMappingURL=bundle.bb49.js.map
