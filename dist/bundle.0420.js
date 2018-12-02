@@ -103650,7 +103650,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/module/echarts-theme.js */ "./src/js/module/echarts-theme.js");
 /* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/module/echarts.js */ "./src/js/module/echarts.js");
-/* harmony import */ var _js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -104244,10 +104243,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*!**********************************!*\
   !*** ./src/js/module/echarts.js ***!
   \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./variables */ "./src/js/module/variables.js");
+/* harmony import */ var _moduleFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleFunctions */ "./src/js/module/moduleFunctions.js");
+/* harmony import */ var _moduleUpdateView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleUpdateView */ "./src/js/module/moduleUpdateView.js");
 // 最近7天浏览量
+
+
+
+
 var echarts = __webpack_require__(/*! echarts */ "./node_modules/echarts/index.js");
 
 var viewIn7Days = echarts.init(document.getElementById("view_in_7days"), "walden");
@@ -104261,15 +104269,15 @@ var viewIn7DaysOption = {
     data: ["浏览量"]
   },
   xAxis: {
-    type: 'category',
+    type: "category",
     data: ["7天前", "6天前", "5天前", "4天前", "3天前", "昨天", "今天"]
   },
   yAxis: {
-    type: 'value'
+    type: "value"
   },
   series: [{
-    data: [5, 4, 10, 25, 17, 32, 16],
-    type: 'line',
+    data: [0, 0, 0, 0, 0, 0, 0],
+    type: "line",
     smooth: true
   }]
 }; // 浏览量分类
@@ -104281,7 +104289,7 @@ var viewByBrowersOption = {
   //     x:'center'
   // },
   tooltip: {
-    trigger: 'item',
+    trigger: "item",
     formatter: "{a} <br/>{b}: {c} ({d}%)"
   },
   // legend: {
@@ -104290,21 +104298,21 @@ var viewByBrowersOption = {
   //     data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
   // },
   series: [{
-    name: '访问来源',
-    type: 'pie',
-    radius: ['60%', '70%'],
-    center: ['50%', '50%'],
+    name: "访问来源",
+    type: "pie",
+    radius: ["60%", "70%"],
+    center: ["50%", "50%"],
     avoidLabelOverlap: false,
     label: {
       normal: {
         show: false,
-        position: 'center'
+        position: "center"
       },
       emphasis: {
         show: true,
         textStyle: {
-          fontSize: '15',
-          fontWeight: 'bold'
+          fontSize: "15",
+          fontWeight: "bold"
         }
       }
     },
@@ -104314,25 +104322,42 @@ var viewByBrowersOption = {
       }
     },
     data: [{
-      value: 30,
-      name: 'Chrome'
+      value: 0,
+      name: "Chrome"
     }, {
-      value: 23,
-      name: 'Mobile'
+      value: 0,
+      name: "Mobile"
     }, {
-      value: 15,
-      name: 'Firefox'
+      value: 0,
+      name: "Firefox"
     }, {
-      value: 7,
-      name: 'Edge'
+      value: 0,
+      name: "Edge"
     }, {
-      value: 1,
-      name: 'IE'
+      value: 0,
+      name: "IE"
     }]
   }]
 };
 viewIn7Days.setOption(viewIn7DaysOption);
 viewByBrowers.setOption(viewByBrowersOption);
+
+(function () {
+  Object(_moduleFunctions__WEBPACK_IMPORTED_MODULE_1__["initialRequest"])(_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].websiteDataUrl).then(function (res) {
+    Object(_moduleUpdateView__WEBPACK_IMPORTED_MODULE_2__["handleWebsiteData"])(res);
+    handleEchartsData(res);
+  }).catch(function (error) {
+    console.log("[error]" + error);
+  });
+})();
+
+function handleEchartsData(res) {
+  var websiteData = res.data[0];
+  viewIn7DaysOption.series[0].data = websiteData.websiteView;
+  viewByBrowersOption.series[0].data = websiteData.pageViews;
+  viewIn7Days.setOption(viewIn7DaysOption);
+  viewByBrowers.setOption(viewByBrowersOption);
+}
 
 /***/ }),
 
@@ -104487,7 +104512,7 @@ function initialRequest(url) {
 /*!*******************************************!*\
   !*** ./src/js/module/moduleUpdateView.js ***!
   \*******************************************/
-/*! exports provided: handleWeather, handlePrice, handleUSDPrice, handleNews, handleHistory */
+/*! exports provided: handleWeather, handlePrice, handleUSDPrice, handleWebsiteData, handleNews, handleHistory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -104495,6 +104520,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleWeather", function() { return handleWeather; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handlePrice", function() { return handlePrice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleUSDPrice", function() { return handleUSDPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleWebsiteData", function() { return handleWebsiteData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleNews", function() { return handleNews; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleHistory", function() { return handleHistory; });
 /* harmony import */ var _moduleFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleFunctions */ "./src/js/module/moduleFunctions.js");
@@ -104678,6 +104704,19 @@ function handleUSDPrice(res) {
 
   _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.innerText = usdPricePercent.toFixed(4) + "%";
   _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPrice.innerText = usdPriceToday.toFixed(2);
+} // 处理现在用户数和浏览最多的页面
+
+
+function handleWebsiteData(res) {
+  var websiteData = res.data[0];
+  var mostViewPageElem = "";
+
+  for (var i = 0; i < 3; i++) {
+    mostViewPageElem += '<p class="m-weight1__item">' + websiteData.mostViewPage[i] + '</p>';
+  }
+
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].userRightNow.innerText = websiteData.userRightNow;
+  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].mostViewPage.innerHTML = mostViewPageElem;
 } // 处理新闻
 
 
@@ -104732,6 +104771,7 @@ var vb = {
   usdPriceUrlBase: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra",
   usdPriceStartDate: new Date(Date.now() - 86400000).getDateParam("-"),
   usdPriceEndDate: new Date(Date.now()).getDateParam("-"),
+  websiteDataUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/website_data",
   newsUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/news#!method=get",
   todayInHistoryUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/history#!method=get",
   weekday: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -104765,6 +104805,8 @@ var vb = {
   ETHPrice: doc.getElementById("ETH-price"),
   LTCPercent: doc.getElementById("LTC-percent"),
   LTCPrice: doc.getElementById("LTC-price"),
+  userRightNow: doc.getElementById("userRightNow"),
+  mostViewPage: doc.getElementById("mostViewPage"),
   newsContainer: doc.getElementById("news"),
   historyContainer: doc.getElementById("history")
 };
@@ -104794,4 +104836,4 @@ var vb = {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.bb49.js.map
+//# sourceMappingURL=bundle.0420.js.map
