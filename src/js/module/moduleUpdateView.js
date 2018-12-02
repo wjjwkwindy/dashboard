@@ -4,6 +4,7 @@ export {
   handleWeather,
   handlePrice,
   handleUSDPrice,
+  handleWebsiteData,
   handleNews,
   handleHistory
 };
@@ -191,6 +192,17 @@ function handleUSDPrice(res) {
   }
   dataString.USDPercent.innerText = usdPricePercent.toFixed(4) + "%";
   dataString.USDPrice.innerText = usdPriceToday.toFixed(2);
+}
+
+// 处理现在用户数和浏览最多的页面
+function handleWebsiteData(res) {
+  let websiteData = res.data[0];
+  let mostViewPageElem= "";
+  for (let i = 0; i < 3; i++) {
+    mostViewPageElem += '<p class="m-weight1__item">'+websiteData.mostViewPage[i]+'</p>';
+  }
+  dataString.userRightNow.innerText = websiteData.userRightNow;
+  dataString.mostViewPage.innerHTML = mostViewPageElem;
 }
 
 // 处理新闻

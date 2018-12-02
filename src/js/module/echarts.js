@@ -1,4 +1,8 @@
 // 最近7天浏览量
+import { vb } from "./variables";
+import { initialRequest } from "./moduleFunctions";
+import { handleWebsiteData } from "./moduleUpdateView";
+
 var echarts = require("echarts");
 var viewIn7Days = echarts.init(
   document.getElementById("view_in_7days"),
@@ -26,7 +30,7 @@ var viewIn7DaysOption = {
   },
   series: [
     {
-      data: [5, 4, 10, 25, 17, 32, 16],
+      data: [0, 0, 0, 0, 0, 0, 0],
       type: "line",
       smooth: true
     }
@@ -75,11 +79,11 @@ var viewByBrowersOption = {
         }
       },
       data: [
-        { value: 30, name: "Chrome" },
-        { value: 23, name: "Mobile" },
-        { value: 15, name: "Firefox" },
-        { value: 7, name: "Edge" },
-        { value: 1, name: "IE" }
+        { value: 0, name: "Chrome" },
+        { value: 0, name: "Mobile" },
+        { value: 0, name: "Firefox" },
+        { value: 0, name: "Edge" },
+        { value: 0, name: "IE" }
       ]
     }
   ]
@@ -87,3 +91,22 @@ var viewByBrowersOption = {
 
 viewIn7Days.setOption(viewIn7DaysOption);
 viewByBrowers.setOption(viewByBrowersOption);
+
+(() => {
+  initialRequest(vb.websiteDataUrl)
+    .then(res => {
+      handleWebsiteData(res);
+      handleEchartsData(res);
+    })
+    .catch(error => {
+      console.log("[error]" + error);
+    });
+})();
+
+function handleEchartsData(res) {
+  let websiteData = res.data[0];
+  viewIn7DaysOption.series[0].data = websiteData.websiteView;
+  viewByBrowersOption.series[0].data = websiteData.pageViews;
+  viewIn7Days.setOption(viewIn7DaysOption);
+  viewByBrowers.setOption(viewByBrowersOption);
+}

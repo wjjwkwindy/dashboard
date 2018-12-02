@@ -8,7 +8,7 @@ import {
   handlePrice,
   handleUSDPrice,
   handleNews,
-  handleHistory
+  handleHistory,
 } from "./module/moduleUpdateView";
 import { vb } from "./module/variables";
 

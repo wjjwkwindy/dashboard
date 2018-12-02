@@ -14,6 +14,7 @@ const vb = {
       "https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra",
     usdPriceStartDate: new Date(Date.now() - 86400000).getDateParam("-"),
     usdPriceEndDate: new Date(Date.now()).getDateParam("-"),
+    websiteDataUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/website_data",
     newsUrl:
       "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/news#!method=get",
     todayInHistoryUrl:
@@ -61,6 +62,8 @@ const vb = {
     ETHPrice: doc.getElementById("ETH-price"),
     LTCPercent: doc.getElementById("LTC-percent"),
     LTCPrice: doc.getElementById("LTC-price"),
+    userRightNow: doc.getElementById("userRightNow"),
+    mostViewPage: doc.getElementById("mostViewPage"),
     newsContainer: doc.getElementById("news"),
     historyContainer: doc.getElementById("history")
   };
