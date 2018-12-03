@@ -86,6 +86,260 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/butterfly-knife/lib/date/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/butterfly-knife/lib/date/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getMonthDays = getMonthDays;
+exports.getSeparatorDate = getSeparatorDate;
+
+/**
+ * 获取某个月份总天数
+ * eg: 输出 "31"
+ *
+ * @param {Date} date 日期，默认当前日期
+ * @returns {String}
+ */
+function getMonthDays() {
+  var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
+  var d = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return d.getDate();
+}
+/**
+ * 获取前一天日期
+ * eg: 输出 "2018-12-02"
+ *
+ * @param {String} separator 分隔符
+ * @param {Date} date 日期，默认为日期
+ * @returns {String}
+ */
+
+
+function getSeparatorDate(separator) {
+  var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
+  var separateDate = "";
+  separateDate += date.getFullYear() + separator;
+  separateDate += date.getMonth() + 1 + separator;
+
+  if (date.getDate() < 10) {
+    separateDate += "0" + date.getDate();
+  } else {
+    separateDate += date.getDate();
+  }
+
+  return separateDate;
+}
+
+/***/ }),
+
+/***/ "./node_modules/butterfly-knife/lib/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/butterfly-knife/lib/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "getMonthDays", {
+  enumerable: true,
+  get: function get() {
+    return _date.getMonthDays;
+  }
+});
+Object.defineProperty(exports, "getSeparatorDate", {
+  enumerable: true,
+  get: function get() {
+    return _date.getSeparatorDate;
+  }
+});
+Object.defineProperty(exports, "setArraySessionStorage", {
+  enumerable: true,
+  get: function get() {
+    return _storage.setArraySessionStorage;
+  }
+});
+Object.defineProperty(exports, "getArraySessionStorage", {
+  enumerable: true,
+  get: function get() {
+    return _storage.getArraySessionStorage;
+  }
+});
+Object.defineProperty(exports, "addUrlParam", {
+  enumerable: true,
+  get: function get() {
+    return _url.addUrlParam;
+  }
+});
+Object.defineProperty(exports, "initialRequest", {
+  enumerable: true,
+  get: function get() {
+    return _url.initialRequest;
+  }
+});
+
+var _date = __webpack_require__(/*! ./date/ */ "./node_modules/butterfly-knife/lib/date/index.js");
+
+var _storage = __webpack_require__(/*! ./storage/ */ "./node_modules/butterfly-knife/lib/storage/index.js");
+
+var _url = __webpack_require__(/*! ./url/ */ "./node_modules/butterfly-knife/lib/url/index.js");
+
+// Butterfly-Knife: date tools
+// Butterfly-Knife: storage tools
+// Butterfly-Knife: url tools
+// include all function to BFN
+// BFN = Butterfly Knife
+(function () {
+  var BFN = {
+    getMonthDays: _date.getMonthDays,
+    getSeparatorDate: _date.getSeparatorDate,
+    setArraySessionStorage: _storage.setArraySessionStorage,
+    getArraySessionStorage: _storage.getArraySessionStorage,
+    addUrlParam: _url.addUrlParam,
+    initialRequest: _url.initialRequest
+  };
+
+  if (typeof window == "undefine") {
+    return;
+  }
+
+  for (var i in BFN) {
+    window["BFN_" + i] = BFN[i];
+  }
+
+  window.BFN = BFN;
+})();
+
+/***/ }),
+
+/***/ "./node_modules/butterfly-knife/lib/storage/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/butterfly-knife/lib/storage/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setArraySessionStorage = setArraySessionStorage;
+exports.getArraySessionStorage = getArraySessionStorage;
+
+/**
+ * 存储session数组字段
+ * eg: 要存储的字段：("student","[Tom, Ansh, Felix]")
+ *
+ * @param {String} key 要存储的session数组字段的名
+ * @param {Array} value 要存储的session数组字段的值
+ */
+function setArraySessionStorage(key, value) {
+  var str = "";
+  sessionStorage.removeItem(key);
+
+  for (var i = 0; i < value.length; i++) {
+    str += value[i] + "&";
+  }
+
+  str = str.slice(0, str.length - 1);
+  sessionStorage.setItem(key, str);
+}
+/**
+ * 获取session数组字段
+ *
+ * @param {String} key 要获取的session字段的名
+ * @returns {Array}
+ */
+
+
+function getArraySessionStorage(key) {
+  var str = sessionStorage.getItem(key);
+  return str.split("&");
+}
+
+/***/ }),
+
+/***/ "./node_modules/butterfly-knife/lib/url/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/butterfly-knife/lib/url/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addUrlParam = addUrlParam;
+exports.initialRequest = initialRequest;
+
+/**
+ * 拼接网址和查询字符串
+ *eg: 输入("www.example.com","a","111") 输出("www.example.com?a=111")
+ *
+ * @param {String} url 初始网址
+ * @param {String} name 查询字符串名
+ * @param {String} value 查询字符串参数
+ * @returns {String}
+ */
+function addUrlParam(url, name, value) {
+  for (var i = 0; i < name.length; i++) {
+    url += url.indexOf("?") == -1 ? "?" : "&";
+    url += encodeURIComponent(name[i]) + "=" + encodeURIComponent(value[i]);
+  }
+
+  return url;
+}
+/**
+ * 初始化Ajax请求
+ *
+ * @param {*} url 请求的网址
+ * @returns {Promise}
+ */
+
+
+function initialRequest(url) {
+  return new Promise(function (resolve, reject) {
+    var client = new XMLHttpRequest();
+    client.open("GET", url);
+    client.onreadystatechange = handler;
+    client.responseType = "json";
+    client.setRequestHeader("Accept", "application/json");
+    client.send();
+
+    function handler() {
+      if (this.readyState !== 4) {
+        return;
+      }
+
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./node_modules/echarts/index.js":
 /*!***************************************!*\
   !*** ./node_modules/echarts/index.js ***!
@@ -103669,19 +103923,20 @@ console.log('[index.js] 这里是打包文件入口-index.js');
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/moduleFunctions */ "./src/js/module/moduleFunctions.js");
-/* harmony import */ var _module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/moduleUpdateView */ "./src/js/module/moduleUpdateView.js");
-/* harmony import */ var _module_variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module/variables */ "./src/js/module/variables.js");
+/* harmony import */ var _module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/moduleUpdateView */ "./src/js/module/moduleUpdateView.js");
+/* harmony import */ var _module_variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/variables */ "./src/js/module/variables.js");
 
 
- // 处理天气请求
+
+var butterflyKnife = __webpack_require__(/*! butterfly-knife */ "./node_modules/butterfly-knife/lib/index.js"); // 处理天气请求
+
 
 var starWeatherRequest = function starWeatherRequest() {
-  var weatherUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["addUrlParam"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].weatherUrlBase, ["city", "key"], [_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].weatherCity, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].weatherKey]);
-  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(weatherUrl).then(function (res) {
+  var weatherUrl = butterflyKnife.addUrlParam(_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherUrlBase, ["city", "key"], [_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherCity, _module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherKey]);
+  butterflyKnife.initialRequest(weatherUrl).then(function (res) {
     console.log("[info] Get weather information succeed.");
     sessionStorage.setItem("requestTime", Date.now());
-    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleWeather"])(res, "remote");
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__["handleWeather"])(res, "remote");
   }).catch(function (error) {
     console.log(error);
     console.log("[error] 重置上次请求时间为0");
@@ -103703,7 +103958,7 @@ if (lastRequestTime) {
   if (intervalTime <= restTime) {
     // 据离上次请求小于"请求间隔时间"，读取 sessionStorage 中的数据
     console.log("[info] 据离上次请求小于 " + restTime + " 分钟");
-    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleWeather"])(Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["getSessionStorage"])("weather"), "local");
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__["handleWeather"])(butterflyKnife.getArraySessionStorage("weather"), "local");
   } else {
     // 据离上次请求大于"请求间隔时间"，发起天气请求
     console.log("[info] 据离上次请求大于 " + restTime + " 分钟");
@@ -103715,20 +103970,20 @@ if (lastRequestTime) {
 
 
 (function () {
-  var priceUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["addUrlParam"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceUrlBase, ["CMC_PRO_API_KEY", "start", "limit", "convert"], [_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceKey, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceStart, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceLimit, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].priceConvert]);
-  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(priceUrl).then(function (res) {
-    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handlePrice"])(res);
+  var priceUrl = butterflyKnife.addUrlParam(_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].priceUrlBase, ["CMC_PRO_API_KEY", "start", "limit", "convert"], [_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].priceKey, _module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].priceStart, _module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].priceLimit, _module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].priceConvert]);
+  butterflyKnife.initialRequest(priceUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__["handlePrice"])(res);
   }).catch(function (error) {
     console.log(error);
   });
 })(); // 获取美元汇率
 
 
-var usdPriceUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["addUrlParam"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].usdPriceUrlBase, ["date", "endDate"], [_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].usdPriceStartDate, _module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].usdPriceEndDate]);
+var usdPriceUrl = butterflyKnife.addUrlParam(_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceUrlBase, ["date", "endDate"], [_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceStartDate, _module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceEndDate]);
 
 (function () {
-  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(usdPriceUrl).then(function (res) {
-    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleUSDPrice"])(res); // console.log(res);
+  butterflyKnife.initialRequest(usdPriceUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__["handleUSDPrice"])(res); // console.log(res);
   }).catch(function (error) {
     console.log("[error] " + error);
   });
@@ -103736,8 +103991,8 @@ var usdPriceUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["a
 
 
 (function () {
-  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].newsUrl).then(function (res) {
-    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleNews"])(res);
+  butterflyKnife.initialRequest(_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].newsUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__["handleNews"])(res);
   }).catch(function (error) {
     console.log("[error]" + error);
   });
@@ -103745,8 +104000,8 @@ var usdPriceUrl = Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["a
 
 
 (function () {
-  Object(_module_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["initialRequest"])(_module_variables__WEBPACK_IMPORTED_MODULE_2__["vb"].todayInHistoryUrl).then(function (res) {
-    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleHistory"])(res);
+  butterflyKnife.initialRequest(_module_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].todayInHistoryUrl).then(function (res) {
+    Object(_module_moduleUpdateView__WEBPACK_IMPORTED_MODULE_0__["handleHistory"])(res);
   }).catch(function (error) {
     console.log("[error]" + error);
   });
@@ -104258,6 +104513,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var echarts = __webpack_require__(/*! echarts */ "./node_modules/echarts/index.js");
 
+var butterflyKnife = __webpack_require__(/*! butterfly-knife */ "./node_modules/butterfly-knife/lib/index.js");
+
 var viewIn7Days = echarts.init(document.getElementById("view_in_7days"), "walden");
 var viewByBrowers = echarts.init(document.getElementById("view_by_browers"), "walden");
 var viewIn7DaysOption = {
@@ -104343,7 +104600,7 @@ viewIn7Days.setOption(viewIn7DaysOption);
 viewByBrowers.setOption(viewByBrowersOption);
 
 (function () {
-  Object(_moduleFunctions__WEBPACK_IMPORTED_MODULE_1__["initialRequest"])(_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].websiteDataUrl).then(function (res) {
+  butterflyKnife.initialRequest(_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].websiteDataUrl).then(function (res) {
     Object(_moduleUpdateView__WEBPACK_IMPORTED_MODULE_2__["handleWebsiteData"])(res);
     handleEchartsData(res);
   }).catch(function (error) {
@@ -104523,11 +104780,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleWebsiteData", function() { return handleWebsiteData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleNews", function() { return handleNews; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleHistory", function() { return handleHistory; });
-/* harmony import */ var _moduleFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleFunctions */ "./src/js/module/moduleFunctions.js");
-/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./variables */ "./src/js/module/variables.js");
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./variables */ "./src/js/module/variables.js");
 
 
- // 页面载入时设置"时间进度"和"日期"
+
+var butterflyKnife = __webpack_require__(/*! butterfly-knife */ "./node_modules/butterfly-knife/lib/index.js"); // 页面载入时设置"时间进度"和"日期"
+
 
 var date = new Date();
 
@@ -104536,19 +104794,19 @@ var date = new Date();
   var currentYear = date.getFullYear();
   var initialYear = new Date(currentYear, 0, 1);
   var yearProgress = Math.floor((date - initialYear) / (1000 * 60 * 60 * 24) * 100 / 365),
-      monthProgress = Math.floor(date.getDate() / date.getMonthDays() * 100),
+      monthProgress = Math.floor(date.getDate() / butterflyKnife.getMonthDays() * 100),
       weekProgress = Math.floor(date.getDay() / 7 * 100);
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].yearProgressElem.innerText = yearProgress + "%";
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].yearProgressBar.style.width = yearProgress + "%";
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].monthProgressElem.innerText = monthProgress + "%";
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].monthProgressBar.style.width = monthProgress + "%";
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].weekProgressElem.innerText = weekProgress + "%";
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].weekProgressBar.style.width = weekProgress + "%"; // 设置日期
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].yearProgressElem.innerText = yearProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].yearProgressBar.style.width = yearProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].monthProgressElem.innerText = monthProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].monthProgressBar.style.width = monthProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].weekProgressElem.innerText = weekProgress + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].weekProgressBar.style.width = weekProgress + "%"; // 设置日期
 
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].date.innerHTML = function () {
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].date.innerHTML = function () {
     var today = "";
-    today += date.getDateParam(".");
-    today += "<span>" + _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weekday[date.getDay()] + "</span>";
+    today += butterflyKnife.getSeparatorDate(".", date);
+    today += "<span>" + _variables__WEBPACK_IMPORTED_MODULE_0__["vb"].weekday[date.getDay()] + "</span>";
     return today;
   }();
 })(); // 处理天气请求
@@ -104565,7 +104823,7 @@ function handleWeather(res) {
     weatherFl = weatherNow.fl + "° ";
     weatherCond = weatherNow.cond.txt;
     weatherPcpn = weatherNow.pcpn + "%";
-    Object(_moduleFunctions__WEBPACK_IMPORTED_MODULE_0__["setSessionStorage"])("weather", [weatherFl, weatherCond, weatherPcpn]);
+    butterflyKnife.setArraySessionStorage("weather", [weatherFl, weatherCond, weatherPcpn]);
     console.log("[info] 远端数据");
   } else {
     var localWeatherRes = res;
@@ -104577,19 +104835,19 @@ function handleWeather(res) {
 
   weather.innerHTML = weatherFl;
 
-  for (var i = 0; i < _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription.length; i++) {
-    if (_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription[i].chinese == weatherCond) {
-      weather.innerHTML += _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription[i].english + " ";
+  for (var i = 0; i < _variables__WEBPACK_IMPORTED_MODULE_0__["vb"].weatherDescription.length; i++) {
+    if (_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].weatherDescription[i].chinese == weatherCond) {
+      weather.innerHTML += _variables__WEBPACK_IMPORTED_MODULE_0__["vb"].weatherDescription[i].english + " ";
       break;
     }
 
-    if (i == _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherDescription.length) {
+    if (i == _variables__WEBPACK_IMPORTED_MODULE_0__["vb"].weatherDescription.length) {
       weather.innerHTML += weatherCond + " ";
     }
   }
 
   weather.innerHTML += weatherPcpn;
-  weather.innerHTML += "<span>" + _variables__WEBPACK_IMPORTED_MODULE_1__["vb"].weatherCity + "</span>";
+  weather.innerHTML += "<span>" + _variables__WEBPACK_IMPORTED_MODULE_0__["vb"].weatherCity + "</span>";
 } // 处理货币走势
 
 
@@ -104633,40 +104891,40 @@ function handlePrice(res) {
   for (var _i = 0; _i < priceTotal.length; _i++) {
     switch (priceTotal[_i][0]) {
       case "BTC":
-        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPrice.innerText = priceTotal[_i][1];
-        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.innerText = priceTotal[_i][2] + "%";
+        _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BTCPrice.innerText = priceTotal[_i][1];
+        _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BTCPercent.innerText = priceTotal[_i][2] + "%";
 
         if (priceTotal[_i][2] < 0) {
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.previousElementSibling.classList.add("icon-caret-down-solid");
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.parentElement.classList.add("d--color-danger");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BTCPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BTCPercent.parentElement.classList.add("d--color-danger");
         } else {
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BTCPercent.parentElement.classList.add("d--color-success");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BTCPercent.parentElement.classList.add("d--color-success");
         }
 
         break;
 
       case "BCH":
-        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPrice.innerText = priceTotal[_i][1];
-        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.innerText = priceTotal[_i][2] + "%";
+        _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BCHPrice.innerText = priceTotal[_i][1];
+        _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BCHPercent.innerText = priceTotal[_i][2] + "%";
 
         if (priceTotal[_i][2] < 0) {
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.parentElement.classList.add("d--color-danger");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BCHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BCHPercent.parentElement.classList.add("d--color-danger");
         } else {
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].BCHPercent.parentElement.classList.add("d--color-success");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].BCHPercent.parentElement.classList.add("d--color-success");
         }
 
         break;
 
       case "ETH":
-        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPrice.innerText = priceTotal[_i][1];
-        _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.innerText = priceTotal[_i][2] + "%";
+        _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].ETHPrice.innerText = priceTotal[_i][1];
+        _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].ETHPercent.innerText = priceTotal[_i][2] + "%";
 
         if (priceTotal[_i][2] < 0) {
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.parentElement.classList.add("d--color-danger");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].ETHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].ETHPercent.parentElement.classList.add("d--color-danger");
         } else {
-          _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].ETHPercent.parentElement.classList.add("d--color-success");
+          _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].ETHPercent.parentElement.classList.add("d--color-success");
         }
 
         break;
@@ -104691,19 +104949,19 @@ function handlePrice(res) {
 
 
 function handleUSDPrice(res) {
-  var usdPriceYesterday = res.USD_CNY[_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceStartDate];
-  var usdPriceToday = res.USD_CNY[_variables__WEBPACK_IMPORTED_MODULE_1__["vb"].usdPriceEndDate];
+  var usdPriceYesterday = res.USD_CNY[_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].usdPriceStartDate];
+  var usdPriceToday = res.USD_CNY[_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].usdPriceEndDate];
   var usdPricePercent = (usdPriceToday - usdPriceYesterday) / usdPriceToday;
 
   if (usdPricePercent < 0) {
-    _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.previousElementSibling.classList.add("icon-caret-down-solid");
-    _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.parentElement.classList.add("d--color-danger");
+    _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].USDPercent.previousElementSibling.classList.add("icon-caret-down-solid");
+    _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].USDPercent.parentElement.classList.add("d--color-danger");
   } else {
-    _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.parentElement.classList.add("d--color-success");
+    _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].USDPercent.parentElement.classList.add("d--color-success");
   }
 
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPercent.innerText = usdPricePercent.toFixed(4) + "%";
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].USDPrice.innerText = usdPriceToday.toFixed(2);
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].USDPercent.innerText = usdPricePercent.toFixed(4) + "%";
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].USDPrice.innerText = usdPriceToday.toFixed(2);
 } // 处理现在用户数和浏览最多的页面
 
 
@@ -104715,8 +104973,8 @@ function handleWebsiteData(res) {
     mostViewPageElem += '<p class="m-weight1__item">' + websiteData.mostViewPage[i] + '</p>';
   }
 
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].userRightNow.innerText = websiteData.userRightNow;
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].mostViewPage.innerHTML = mostViewPageElem;
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].userRightNow.innerText = websiteData.userRightNow;
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].mostViewPage.innerHTML = mostViewPageElem;
 } // 处理新闻
 
 
@@ -104728,7 +104986,7 @@ function handleNews(res) {
     newsElem += '<a class="m-weight1__item" target="_blank"  href="' + news[i].link + '">' + (i + 1) + ". " + news[i].title + "</a>";
   }
 
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].newsContainer.innerHTML = newsElem;
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].newsContainer.innerHTML = newsElem;
 } // 处理历史上的今天
 
 
@@ -104741,7 +104999,7 @@ function handleHistory(res) {
     if (i == 5) break;
   }
 
-  _variables__WEBPACK_IMPORTED_MODULE_1__["dataString"].historyContainer.innerHTML = historyElem;
+  _variables__WEBPACK_IMPORTED_MODULE_0__["dataString"].historyContainer.innerHTML = historyElem;
 }
 
 /***/ }),
@@ -104758,6 +105016,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vb", function() { return vb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataString", function() { return dataString; });
 
+
+var butterflyKnife = __webpack_require__(/*! butterfly-knife */ "./node_modules/butterfly-knife/lib/index.js");
+
 var doc = document;
 var vb = {
   weatherUrlBase: "https://free-api.heweather.com/v5/weather",
@@ -104769,8 +105030,8 @@ var vb = {
   priceLimit: 7,
   priceConvert: "CNY",
   usdPriceUrlBase: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra",
-  usdPriceStartDate: new Date(Date.now() - 86400000).getDateParam("-"),
-  usdPriceEndDate: new Date(Date.now()).getDateParam("-"),
+  usdPriceStartDate: butterflyKnife.getSeparatorDate("-", new Date(Date.now() - 86400000)),
+  usdPriceEndDate: butterflyKnife.getSeparatorDate("-", new Date(Date.now())),
   websiteDataUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/website_data",
   newsUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/news#!method=get",
   todayInHistoryUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/history#!method=get",
@@ -104836,4 +105097,4 @@ var vb = {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.0420.js.map
+//# sourceMappingURL=bundle.674f.js.map

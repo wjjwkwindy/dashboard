@@ -4,6 +4,7 @@ import { initialRequest } from "./moduleFunctions";
 import { handleWebsiteData } from "./moduleUpdateView";
 
 var echarts = require("echarts");
+let butterflyKnife = require('butterfly-knife');
 var viewIn7Days = echarts.init(
   document.getElementById("view_in_7days"),
   "walden"
@@ -93,7 +94,7 @@ viewIn7Days.setOption(viewIn7DaysOption);
 viewByBrowers.setOption(viewByBrowersOption);
 
 (() => {
-  initialRequest(vb.websiteDataUrl)
+  butterflyKnife.initialRequest(vb.websiteDataUrl)
     .then(res => {
       handleWebsiteData(res);
       handleEchartsData(res);

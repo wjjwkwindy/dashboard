@@ -1,9 +1,4 @@
 import {
-  addUrlParam,
-  getSessionStorage,
-  initialRequest
-} from "./module/moduleFunctions";
-import {
   handleWeather,
   handlePrice,
   handleUSDPrice,
@@ -12,14 +7,16 @@ import {
 } from "./module/moduleUpdateView";
 import { vb } from "./module/variables";
 
+let butterflyKnife = require('butterfly-knife');
+
 // 处理天气请求
 let starWeatherRequest = function() {
-  const weatherUrl = addUrlParam(
+  const weatherUrl = butterflyKnife.addUrlParam(
     vb.weatherUrlBase,
     ["city", "key"],
     [vb.weatherCity, vb.weatherKey]
   );
-  initialRequest(weatherUrl)
+  butterflyKnife.initialRequest(weatherUrl)
     .then(res => {
       console.log("[info] Get weather information succeed.");
       sessionStorage.setItem("requestTime", Date.now());
@@ -44,7 +41,7 @@ if (lastRequestTime) {
   if (intervalTime <= restTime) {
     // 据离上次请求小于"请求间隔时间"，读取 sessionStorage 中的数据
     console.log("[info] 据离上次请求小于 " + restTime + " 分钟");
-    handleWeather(getSessionStorage("weather"), "local");
+    handleWeather(butterflyKnife.getArraySessionStorage("weather"), "local");
   } else {
     // 据离上次请求大于"请求间隔时间"，发起天气请求
     console.log("[info] 据离上次请求大于 " + restTime + " 分钟");
@@ -56,12 +53,12 @@ if (lastRequestTime) {
 
 // 获取货币走势
 (() => {
-  const priceUrl = addUrlParam(
+  const priceUrl = butterflyKnife.addUrlParam(
     vb.priceUrlBase,
     ["CMC_PRO_API_KEY", "start", "limit", "convert"],
     [vb.priceKey, vb.priceStart, vb.priceLimit, vb.priceConvert]
   );
-  initialRequest(priceUrl)
+  butterflyKnife.initialRequest(priceUrl)
     .then(res => {
       handlePrice(res);
     })
@@ -71,13 +68,13 @@ if (lastRequestTime) {
 })();
 
 // 获取美元汇率
-let usdPriceUrl = addUrlParam(
+let usdPriceUrl = butterflyKnife.addUrlParam(
   vb.usdPriceUrlBase,
   ["date", "endDate"],
   [vb.usdPriceStartDate, vb.usdPriceEndDate]
 );
 (() => {
-  initialRequest(usdPriceUrl)
+  butterflyKnife.initialRequest(usdPriceUrl)
     .then(res => {
       handleUSDPrice(res);
       // console.log(res);
@@ -89,7 +86,7 @@ let usdPriceUrl = addUrlParam(
 
 // 获取新闻
 (() => {
-  initialRequest(vb.newsUrl)
+  butterflyKnife.initialRequest(vb.newsUrl)
     .then(res => {
       handleNews(res);
     })
@@ -100,7 +97,7 @@ let usdPriceUrl = addUrlParam(
 
 // 获取历史上的今天
 (() => {
-  initialRequest(vb.todayInHistoryUrl)
+  butterflyKnife.initialRequest(vb.todayInHistoryUrl)
     .then(res => {
       handleHistory(res);
     })

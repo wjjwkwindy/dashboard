@@ -1,4 +1,3 @@
-import { setSessionStorage } from "./moduleFunctions";
 import { vb,dataString } from "./variables";
 export {
   handleWeather,
@@ -9,6 +8,7 @@ export {
   handleHistory
 };
 
+let butterflyKnife = require('butterfly-knife');
 
 // 页面载入时设置"时间进度"和"日期"
 let date = new Date();
@@ -19,7 +19,7 @@ let date = new Date();
   let yearProgress = Math.floor(
       (((date - initialYear) / (1000 * 60 * 60 * 24)) * 100) / 365
     ),
-    monthProgress = Math.floor((date.getDate() / date.getMonthDays()) * 100),
+    monthProgress = Math.floor((date.getDate() / butterflyKnife.getMonthDays()) * 100),
     weekProgress = Math.floor((date.getDay() / 7) * 100);
   dataString.yearProgressElem.innerText = yearProgress + "%";
   dataString.yearProgressBar.style.width = yearProgress + "%";
@@ -31,7 +31,7 @@ let date = new Date();
   // 设置日期
   dataString.date.innerHTML = (() => {
     let today = "";
-    today += date.getDateParam(".");
+    today += butterflyKnife.getSeparatorDate(".",date);
     today += "<span>" + vb.weekday[date.getDay()] + "</span>";
     return today;
   })();
@@ -47,7 +47,7 @@ function handleWeather(res, origin = "local") {
     weatherFl = weatherNow.fl + "° ";
     weatherCond = weatherNow.cond.txt;
     weatherPcpn = weatherNow.pcpn + "%";
-    setSessionStorage("weather", [weatherFl, weatherCond, weatherPcpn]);
+    butterflyKnife.setArraySessionStorage("weather", [weatherFl, weatherCond, weatherPcpn]);
     console.log("[info] 远端数据");
   } else {
     let localWeatherRes = res;

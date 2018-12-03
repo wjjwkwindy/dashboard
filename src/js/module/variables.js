@@ -1,4 +1,5 @@
 export { vb, dataString };
+let butterflyKnife = require('butterfly-knife');
 let doc = document;
 const vb = {
     weatherUrlBase: "https://free-api.heweather.com/v5/weather",
@@ -12,8 +13,8 @@ const vb = {
     priceConvert: "CNY",
     usdPriceUrlBase:
       "https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra",
-    usdPriceStartDate: new Date(Date.now() - 86400000).getDateParam("-"),
-    usdPriceEndDate: new Date(Date.now()).getDateParam("-"),
+    usdPriceStartDate: butterflyKnife.getSeparatorDate("-", new Date(Date.now() - 86400000)),
+    usdPriceEndDate: butterflyKnife.getSeparatorDate("-", new Date(Date.now())),
     websiteDataUrl: "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/website_data",
     newsUrl:
       "https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/news#!method=get",
