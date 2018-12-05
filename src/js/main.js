@@ -105,3 +105,26 @@ let usdPriceUrl = butterflyKnife.addUrlParam(
       console.log("[error]" + error);
     });
 })();
+
+// 处理点击事件
+function showList(target){
+  hideAllList();
+  target.classList.toggle('d-menu-toggle-drop');
+}
+
+function hideAllList() {
+  let lists = document.querySelectorAll('.d-menu__submenu, .d-dropdown__wrapper');
+  for (let i = 0; i < lists.length; i++) {
+    lists[i].parentNode.classList.remove('d-menu-toggle-drop');
+  }
+}
+
+window.addEventListener('click',(event)=>{
+  if(event.target.parentNode.dataset.drop!='true'){
+    hideAllList();
+    console.log('hidden');
+  }else{
+    showList(event.target.parentNode.parentNode);
+    console.log('no-hidden');
+  }
+})

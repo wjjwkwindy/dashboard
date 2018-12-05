@@ -1,14 +1,9 @@
-@import 'base_variables';
+@import "base_variables";
 $left-sidebar-width: 178px;
 %h2-font {
   font-size: 18px;
   font-weight: bold;
   color: #333;
-}
-
-%nav-active {
-  box-shadow: 0 0 50px #eaeaea;
-  border-radius: 3px;
 }
 
 * {
@@ -23,132 +18,111 @@ body {
   font-family: $font-poppins;
 }
 
-p{
+p {
   margin: 0;
 }
 
-a{
+a {
   color: #222222;
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   text-decoration: underline;
 }
+
+// 顶部导航栏
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  z-index: 999999;
+
+  .top-nav {
+    width: 100%;
+    height: 100%;
+    display: table;
+    table-layout: fixed;
+    z-index: 1000;
+
+    .nav-brand {
+      display: table-cell;
+      width: $left-sidebar-width+1;
+      height: 100%;
+      background-color: #22253e;
+    }
+
+    .nav-menu {
+      display: table-cell;
+      height: 100%;
+      background: #fff;
+      box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
+
+      .nav-menu-left{
+        height: 100%;
+      }
+
+      .nav-menu-right{
+        height: 100%;
+        padding-right: 38px;
+      }
+    }
+  }
+}
+
+// wrapper
 
 .wrapper {
   display: grid;
   grid-template-columns: $left-sidebar-width 1fr;
   height: 100%;
-}
-
-.icomoon{
-  font-family: $font-icomoon;
-}
-
-.icon-home-solid::before{
-  content: "\e903";
-}
-
-.icon-cloud-solid::before{
-  content: "\e901";
-}
-
-.icon-chart-pie-solid::before{
-  content: "\e900";
-}
-
-.icon-cog-solid::before{
-  content: "\e902";
-}
-
-.icon-caret-up-solid::before{
-  content:"\e904";
-}
-
-.icon-caret-down-solid::before{
-  content:"\e906";
-}
-
-.d--bg-info{
-  background-color: $ColorInfo;
-}
-.d--bg-danger{
-  background-color: $ColorDanger;
-}
-.d--bg-success{
-  background-color: $ColorSuccess;
-}
-.d--color-info{
-  color: $ColorInfo;
-}
-.d--color-danger{
-  color: $ColorDanger;
-}
-.d--color-success{
-  color: $ColorSuccess;
-}
-
-.d--font-h2{
-  font-size: 18px;
-  color: #3f4047;
-  font-weight: 400;
+  padding-top: 69px;
 }
 
 // 左边栏
 .sidebar {
   width: $left-sidebar-width;
   height: 100%;
+  background: #2c2e3e;
 
-  .main-nav {
+  /*.main-nav {
     text-align: center;
-
-    .avatar {
-      padding: 60px 0;
-      margin-bottom: 49px;
-      border-bottom: 1px solid #f4f4f4;
-
-      img {
-        width: 49px;
-        border-radius: 100%;
-      }
-    }
 
     ul {
       padding: 0;
-      margin-top: 80px;
+      margin: 0;
       list-style: none;
       color: #c8c8c8;
 
       li {
         width: 50px;
         height: 50px;
-        margin: 0 auto 60px;
         box-sizing: content-box;
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
 
-        span{
+        span {
           // font-family: $font-icomoon;
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-50%,-50%);
+          transform: translate(-50%, -50%);
           font-size: 17px;
         }
       }
 
       li:hover {
-        @extend %nav-active;
+        color: #716aca;
       }
 
       .active {
-        @extend %nav-active;
-        color: $iconActiveColor;
+        color: #716aca;
       }
     }
-  }
+  }*/
 }
 
 // 主栏
@@ -175,7 +149,7 @@ a:hover{
     margin-right: 45px;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.08);
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
   }
 
   .item:last-child {
@@ -302,29 +276,29 @@ a:hover{
       font-size: 16px;
     }
 
-    span{
-      float:right;
+    span {
+      float: right;
     }
 
     .progress-container:last-child {
-      .progress{
+      .progress {
         margin-bottom: 0;
       }
     }
 
     .progress {
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       margin-bottom: 3rem;
       height: 0.3rem;
-      border-radius: .25rem;
+      border-radius: 0.25rem;
       background-color: #eee;
     }
 
-    .progress-bar{
+    .progress-bar {
       width: 0%;
       height: 100%;
-      border-radius: .25rem;
-      transition: width .5s ease;
+      border-radius: 0.25rem;
+      transition: width 0.5s ease;
     }
 
     span {
@@ -485,7 +459,7 @@ a:hover{
         justify-content: space-around;
         height: 100%;
         p {
-          margin: .8rem 0;
+          margin: 0.8rem 0;
         }
       }
     }

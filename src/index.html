@@ -5,28 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet" />
     <title>Dashboard</title>
     <style></style>
   </head>
 
   <body>
+    <header class="header-container">
+      <nav class="top-nav">
+        <div class="nav-brand">
+        </div>
+        <div class="nav-menu">
+          <!-- 头部导航栏左侧侧 -->
+          <div class="nav-menu-left m-left">
+            <ul class="d-menu__items">
+              <li class="d-menu__item">
+                <a href="javascript:;" class="d-menu__link" data-drop="true">
+                  <span class="icomoon icon_renwujincheng d-menu__link-icon"></span>
+                  <span class="d-menu__link-text">Reports</span>
+                  <span class="icomoon icon_xia d-menu__link-icon"></span>
+                </a>
+                <div class="d-menu__submenu" data-drop="submenu-a">
+                  <ul class="d-menu__subnav">
+                    <li class="d-menu__subitem">
+                      <a href="" class="d-menu__sublink">
+                        <span class="icomoon icon-yunduanshuaxin d-menu__sublink-icon"></span>
+                        <span class="d-menu__sublink-text">Cloud Server</span>
+                      </a>
+                    </li>
+                    <li class="d-menu__subitem">
+                      <a href="" class="d-menu__sublink">
+                        <span class="icomoon icon-liebiao d-menu__sublink-icon"></span>
+                        <span class="d-menu__sublink-text">Domain List</span>
+                      </a>
+                    </li>
+                    <li class="d-menu__subitem">
+                      <a href="" class="d-menu__sublink">
+                        <span class="icomoon icon-shebeikaifa d-menu__sublink-icon"></span>
+                        <span class="d-menu__sublink-text">SSL Certificate</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="d-menu__item">
+                <a href="javascript:;" class="d-menu__link" data-drop="true">
+                  <span class="icomoon icon_fabu d-menu__link-icon"></span>
+                  <span class="d-menu__link-text">Launch</span> <span class="icomoon icon_xia d-menu__link-icon"></span>
+                </a>
+                <div class="d-menu__submenu">
+                  <div class="d-menu__subnav">
+                    <a href="" class="d-menu__sublink">
+                      <span class="icomoon icon-home-solid d-menu__sublink-icon"></span>
+                      <span class="d-menu__sublink-text">Users</span>
+                    </a>
+                    <a href="" class="d-menu__sublink">
+                      <span class="icomoon icon-home-solid d-menu__sublink-icon"></span>
+                      <span class="d-menu__sublink-text">Users</span>
+                    </a>
+                    <a href="" class="d-menu__sublink">
+                      <span class="icomoon icon-home-solid d-menu__sublink-icon"></span>
+                      <span class="d-menu__sublink-text">Users</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
+
+              <li class="d-menu__item">
+                <a href="javascript:;" class="d-menu__link" data-drop="true">
+                  <span class="icomoon icon_huowudui d-menu__link-icon"></span>
+                  <span class="d-menu__link-text">Packages</span>
+                  <span class="icomoon icon_xia d-menu__link-icon"></span>
+                </a>
+                <div class="d-menu__submenu">
+                  <div class="d-menu__subnav">
+                    <a href="javascript:;" class="d-menu__sublink">
+                      <span class="icomoon icon-home-solid d-menu__sublink-icon"></span>
+                      <span class="d-menu__sublink-text">Users</span>
+                    </a>
+                    <a href="" class="d-menu__sublink">
+                      <span class="icomoon icon-home-solid d-menu__sublink-icon"></span>
+                      <span class="d-menu__sublink-text">Users</span>
+                    </a>
+                    <a href="" class="d-menu__sublink">
+                      <span class="icomoon icon-home-solid d-menu__sublink-icon"></span>
+                      <span class="d-menu__sublink-text">Users</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- 头部导航栏右侧 -->
+          <div class="nav-menu-right m-right">
+            <ul class="d-menu__items">
+              <li class="d-menu__item d-dropdown">
+                <a href="javascript:;" class="d-menu__link d-dropdown_link" data-drop="true">
+                  <span class="icomoon icon_guangbo d-menu__link-icon"></span>
+                </a>
+                <div class="d-dropdown__wrapper d-dropdown--large">
+                  <div class="d-dropdown__container">
+                    <div class="d-dropdown__header">
+                      <h3 class="d-dropdown__header-title">3 new</h3>
+                      <p class="d-dropdown__header-subtitle">User Notifications</p>
+                    </div>
+                    <div class="d-dropdown__body">
+                      <div class="d-dropdown__content">
+                        <nav class="d-dropdown__items">
+                          <li class="d-dropdown__item">
+                            <div class="d-preview__thumbnail"><img src="./assets/images/avatar01.png" alt="" /></div>
+                            <div class="d-preview__content">
+                              <h5 class="d-preview__content-people">
+                                Tim Cook<span class="d-preview__content-time m-right">1 minutes ago</span>
+                              </h5>
+                              <p class="d-preview__content-abstract">We start meeting at 6 pm.</p>
+                            </div>
+                          </li>
+                          <li class="d-dropdown__item">
+                            <div class="d-preview__thumbnail"><img src="./assets/images/avatar01.png" alt="" /></div>
+                            <div class="d-preview__content">
+                              <h5 class="d-preview__content-people">
+                                Kane<span class="d-preview__content-time m-right">15 minutes ago</span>
+                              </h5>
+                              <p class="d-preview__content-abstract">The products have arrived.</p>
+                            </div>
+                          </li>
+                          <li class="d-dropdown__item">
+                            <div class="d-preview__thumbnail"><img src="./assets/images/avatar01.png" alt="" /></div>
+                            <div class="d-preview__content">
+                              <h5 class="d-preview__content-people">
+                                Edward<span class="d-preview__content-time m-right">30 minutes ago</span>
+                              </h5>
+                              <p class="d-preview__content-abstract">When can we lanuch the page?</p>
+                            </div>
+                          </li>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="d-menu__item d-dropdown">
+                <a href="javascript:;" class="d-menu__link" data-drop="true">
+                  <span class="icomoon icon_gongnengdingyi m-pr-0 d-menu__link-icon"></span>
+                </a>
+                <div class="d-dropdown__wrapper d-dropdown--large">
+                  <div class="d-dropdown__container">
+                    <div class="d-dropdown__header">
+                      <h3 class="d-dropdown__header-title">Quick Actions</h3>
+                      <p class="d-dropdown__header-subtitle">Shortcuts</p>
+                    </div>
+                    <div class="d-dropdown__body">
+                      <div class="d-dropdown__shortcuts">
+                        <div class="d-dropdown__shortcutsrow">
+                          <a class="d-dropdown__shortcut">
+                            <span class="icomoon icon-yunduanshangchuan d-dropdown__shortcut-icon"></span>
+                            <p class="d-dropdown__shortcut-text">Create CVM</p>
+                          </a>
+                          <a class="d-dropdown__shortcut">
+                            <span class="icomoon icon-APIshuchu d-dropdown__shortcut-icon"></span>
+                            <p class="d-dropdown__shortcut-text">Create DNS</p>
+                          </a>
+                        </div>
+                        <div class="d-dropdown__shortcutsrow">
+                          <a class="d-dropdown__shortcut">
+                            <span class="icomoon icon-liujisuan d-dropdown__shortcut-icon"></span>
+                            <p class="d-dropdown__shortcut-text">Create Domain</p>
+                          </a>
+                          <a class="d-dropdown__shortcut">
+                            <span class="icomoon icon-guanlianshebei d-dropdown__shortcut-icon"></span>
+                            <p class="d-dropdown__shortcut-text">Add SSL Certificate</p>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="d-menu__item d-dropdown">
+                <a href="javascript:;" class="d-menu__link" data-drop="true">
+                  <p class="d-menu__link-text">Hello, wjjwkwindy!</p>
+                  <span class="icomoon icon_xia m-pr-0 d-menu__link-icon"></span>
+                </a>
+                <div class="d-dropdown__wrapper d-dropdown--medium">
+                  <div class="d-dropdown__container">
+                    <div class="d-dropdown__header d-dropdown__user">
+                      <div class="d-preview__thumbnail"><img src="./assets/images/avatar01.png" alt="" /></div>
+                      <div class="d-preview__content">
+                        <h5 class="d-preview__content-people d--color-white m-left">wjjwkwindy</h5>
+                        <p class="d-preview__content-abstract d--color-white m-left">wjjwkwindy@gmail.com</p>
+                      </div>
+                    </div>
+                    <div class="d-dropdown__body">
+                      <ul class="d-menu__subnav">
+                        <li class="d-menu__subitem">
+                          <a href="#" class="d-menu__sublink">
+                            <span class="icomoon icon_zhanghao d-menu__sublink-icon"></span>
+                            <span class="d-menu__sublink-text">My Profile</span>
+                          </a>
+                        </li>
+                        <li class="d-menu__subitem">
+                          <a href="#" class="d-menu__sublink">
+                            <span class="icomoon icon_xiaoxi d-menu__sublink-icon"></span>
+                            <span class="d-menu__sublink-text">Messages</span>
+                          </a>
+                        </li>
+                        <li class="d-menu__separator"></li>
+                        <li class="d-menu__subitem">
+                          <a href="#" class="d-menu__sublink">
+                            <span class="icomoon icon_yiwenkongxin d-menu__sublink-icon"></span>
+                            <span class="d-menu__sublink-text">FAQ</span>
+                          </a>
+                        </li>
+                        <li class="d-menu__subitem">
+                          <a href="#" class="d-menu__sublink">
+                            <span class="icomoon icon_kefu d-menu__sublink-icon"></span>
+                            <span class="d-menu__sublink-text">Support</span>
+                          </a>
+                        </li>
+                        <li class="d-menu__separator"></li>
+                        <li class="d-menu__subitem"><a href="#" class="d-btn--hollow">Logout</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
     <div class="wrapper">
       <div class="sidebar">
-        <nav class="main-nav">
-          <div class="avatar">
-            <img src="assets/images/avatar.png" alt="" />
-          </div>
-          <ul>
-            <li class="active">
-              <span class="icomoon icon-home-solid"></span>
+        <nav class="nav-menu-aside">
+          <!--
+            <ul>
+              <li class="active"><span class="icomoon icon-home-solid"></span></li>
+              <li><span class="icomoon icon-cloud-solid"></span></li>
+              <li><span class="icomoon icon-chart-pie-solid"></span></li>
+              <li><span class="icomoon icon-cog-solid"></span></li>
+            </ul>
+          -->
+          <ul class="d-menu__items">
+            <li class="d-menu__item">
+              <a href="javascript:;" class="d-menu__link" id="toggle-submenu">
+                <span class="icomoon icon_renwujincheng d-menu__link-icon"></span>
+                <span class="d-menu__link-text">Dashboard</span>
+              </a>
             </li>
-            <li><span class="icomoon icon-cloud-solid"></span></li>
-            <li><span class="icomoon icon-chart-pie-solid"></span></li>
-            <li><span class="icomoon icon-cog-solid"></span></li>
+            <li class="d-menu__section">
+              <h6 class="d-menu__section-title">Componets</h6>
+            </li>
+            <li class="d-menu__item">
+              <a href="javascript:;" class="d-menu__link" id="toggle-submenu">
+                <span class="icomoon icon_renwujincheng d-menu__link-icon"></span>
+                <span class="d-menu__link-text">Layout</span>
+              </a>
+            </li>
+            <li class="d-menu__item">
+              <a href="javascript:;" class="d-menu__link" id="toggle-submenu">
+                <span class="icomoon icon_renwujincheng d-menu__link-icon"></span>
+                <span class="d-menu__link-text">Icons</span>
+              </a>
+            </li>
+            <li class="d-menu__item">
+              <a href="javascript:;" class="d-menu__link" id="toggle-submenu">
+                <span class="icomoon icon_renwujincheng d-menu__link-icon"></span>
+                <span class="d-menu__link-text">Fonts</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -60,12 +310,8 @@
                       </div>
                       <div class="exchange">
                         <p class="exchange_1">1</p>
-                        <p class="sync-icon">
-                          <span class="icomoon icon-caret-up-solid"></span>
-                        </p>
-                        <p class="rmb d--color-info">
-                          ¥<span id="USD-price">0</span>
-                        </p>
+                        <p class="sync-icon"><span class="icomoon icon-caret-up-solid"></span></p>
+                        <p class="rmb d--color-info">¥<span id="USD-price">0</span></p>
                       </div>
                     </div>
                   </div>
@@ -82,12 +328,8 @@
                       </div>
                       <div class="exchange">
                         <p class="exchange_1">1</p>
-                        <p class="sync-icon">
-                          <span class="icomoon icon-caret-up-solid"></span>
-                        </p>
-                        <p class="rmb d--color-info">
-                          ¥<span id="BTC-price">0</span>
-                        </p>
+                        <p class="sync-icon"><span class="icomoon icon-caret-up-solid"></span></p>
+                        <p class="rmb d--color-info">¥<span id="BTC-price">0</span></p>
                       </div>
                     </div>
                   </div>
@@ -104,12 +346,8 @@
                       </div>
                       <div class="exchange">
                         <p class="exchange_1">1</p>
-                        <p class="sync-icon">
-                          <span class="icomoon icon-caret-up-solid"></span>
-                        </p>
-                        <p class="rmb d--color-info">
-                          ¥<span id="BCH-price">0</span>
-                        </p>
+                        <p class="sync-icon"><span class="icomoon icon-caret-up-solid"></span></p>
+                        <p class="rmb d--color-info">¥<span id="BCH-price">0</span></p>
                       </div>
                     </div>
                   </div>
@@ -126,12 +364,8 @@
                       </div>
                       <div class="exchange">
                         <p class="exchange_1">1</p>
-                        <p class="sync-icon">
-                          <span class="icomoon icon-caret-up-solid"></span>
-                        </p>
-                        <p class="rmb d--color-info">
-                          ¥<span id="ETH-price">0</span>
-                        </p>
+                        <p class="sync-icon"><span class="icomoon icon-caret-up-solid"></span></p>
+                        <p class="rmb d--color-info">¥<span id="ETH-price">0</span></p>
                       </div>
                     </div>
                   </div>
@@ -140,41 +374,36 @@
             </div>
             <div class="col-xl-3">
               <div class="inner progress-inner">
-                    <div class="progress-container">
-                      <p class="d--font-h2">Year Progress<span id="yearProgress">0%</span></p>
-                      <div class="progress">
-                        <div
-                          class="progress-bar d--bg-info"
-                          id="yearProgressBar"
-                          style="width: 0%"
-                          data-value="50"
-                        ></div>
-                      </div>
-                    </div>
+                <div class="progress-container">
+                  <p class="d--font-h2">Year Progress<span id="yearProgress">0%</span></p>
+                  <div class="progress">
+                    <div class="progress-bar d--bg-info" id="yearProgressBar" style="width: 0%" data-value="50"></div>
+                  </div>
+                </div>
 
-                    <div class="progress-container">
-                      <p class="d--font-h2">Month Progress<span id="monthProgress">0%</span></p>
-                      <div class="progress">
-                        <div
-                          class="progress-bar d--bg-danger"
-                          id="monthProgressBar"
-                          style="width: 0%"
-                          data-value="50"
-                        ></div>
-                      </div>
-                    </div>
+                <div class="progress-container">
+                  <p class="d--font-h2">Month Progress<span id="monthProgress">0%</span></p>
+                  <div class="progress">
+                    <div
+                      class="progress-bar d--bg-danger"
+                      id="monthProgressBar"
+                      style="width: 0%"
+                      data-value="50"
+                    ></div>
+                  </div>
+                </div>
 
-                    <div class="progress-container">
-                      <p class="d--font-h2">Week Progress<span id="weekProgress">0%</span></p>
-                      <div class="progress">
-                        <div
-                          class="progress-bar d--bg-success"
-                          id="weekProgressBar"
-                          style="width: 0%"
-                          data-value="50"
-                        ></div>
-                      </div>
-                    </div>
+                <div class="progress-container">
+                  <p class="d--font-h2">Week Progress<span id="weekProgress">0%</span></p>
+                  <div class="progress">
+                    <div
+                      class="progress-bar d--bg-success"
+                      id="weekProgressBar"
+                      style="width: 0%"
+                      data-value="50"
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -182,33 +411,31 @@
           <div class="row">
             <div class="col-xl-6">
               <div class="inner website-inner">
-                <div class="item-website">
-                    <div id="view_in_7days" style="width: 100%;height:100%;"></div>
-                </div>
+                <div class="item-website"><div id="view_in_7days" style="width: 100%;height:100%;"></div></div>
               </div>
             </div>
             <div class="col-xl-2">
               <div class="column column-inner">
-                <div class= "row-inner-4">
+                <div class="row-inner-4">
                   <div class="inner origin-inner">
-                          <h2 class="d--font-h2">Users Right Now</h2>
-                          <h3 id="userRightNow">2</h3>
+                    <h2 class="d--font-h2">Users Right Now</h2>
+                    <h3 id="userRightNow">2</h3>
                   </div>
                 </div>
-                <div class= "row-inner-4">
+                <div class="row-inner-4">
                   <div class="inner origin-inner">
-                      <h2 class="d--font-h2">Pageviews</h2>
-                      <div id="view_by_browers" style="width:100%;height:100%"></div>
+                    <h2 class="d--font-h2">Pageviews</h2>
+                    <div id="view_by_browers" style="width:100%;height:100%"></div>
                   </div>
                 </div>
-                <div class= "row-inner-4 d--clear-padding">
+                <div class="row-inner-4 d--clear-padding">
                   <div class="inner origin-inner">
-                      <h2 class="d--font-h2">Most View Page</h2>
-                      <div class="m-weight1" id="mostViewPage">
-                        <p class="m-weight1__item">1. index.html</p>
-                        <p class="m-weight1__item">2. index.html</p>
-                        <p class="m-weight1__item">3. index.html</p>
-                      </div>
+                    <h2 class="d--font-h2">Most View Page</h2>
+                    <div class="m-weight1" id="mostViewPage">
+                      <p class="m-weight1__item">1. index.html</p>
+                      <p class="m-weight1__item">2. index.html</p>
+                      <p class="m-weight1__item">3. index.html</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -217,29 +444,29 @@
               <div class="column column-inner">
                 <div class="row-inner-6">
                   <div class="inner origin-inner">
-                      <h2 class="d--font-h2">News</h2>
-                      <div class="m-weight1" id="news">
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                        <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
-                      </div>
+                    <h2 class="d--font-h2">News</h2>
+                    <div class="m-weight1" id="news">
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                      <p class="m-weight1__item">1. 新闻问啊新闻问啊新闻问啊新闻问啊新闻问啊新新闻问啊</p>
+                    </div>
                   </div>
                 </div>
                 <div class="row-inner-6 d--clear-padding">
                   <div class="inner origin-inner">
-                      <h2 class="d--font-h2">Today in History</h2>
-                      <div class="m-weight1" id="history">
-                          <p class="m-weight1__item">1905 历史上的今天</p>
-                          <p class="m-weight1__item">1905 历史上的今天</p>
-                          <p class="m-weight1__item">1905 历史上的今天</p>
-                          <p class="m-weight1__item">1905 历史上的今天</p>
-                          <p class="m-weight1__item">1919 历史上的今天</p>
-                          <p class="m-weight1__item">1919 历史上的今天</p>
-                      </div>
+                    <h2 class="d--font-h2">Today in History</h2>
+                    <div class="m-weight1" id="history">
+                      <p class="m-weight1__item">1905 历史上的今天</p>
+                      <p class="m-weight1__item">1905 历史上的今天</p>
+                      <p class="m-weight1__item">1905 历史上的今天</p>
+                      <p class="m-weight1__item">1905 历史上的今天</p>
+                      <p class="m-weight1__item">1919 历史上的今天</p>
+                      <p class="m-weight1__item">1919 历史上的今天</p>
+                    </div>
                   </div>
                 </div>
               </div>

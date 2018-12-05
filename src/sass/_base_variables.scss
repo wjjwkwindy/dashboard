@@ -1,21 +1,22 @@
-$bgColor: #EBECF2;
+$bgColor: #ebecf2;
 $iconActiveColor: #383838;
 $iconColor: #d4d4d4;
+$ColorWhite: #fff !important;
 $ColorInfo: #36a3f7 !important;
 $ColorDanger: #f4516c !important;
-$ColorSuccess:#34bfa3 !important;
+$ColorSuccess: #34bfa3 !important;
 
-$font-dosis: Dosis, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue',
+$font-dosis: Dosis, "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
   Helvetica, Arial, sans-serif;
-$font-pingfang: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica,
+$font-pingfang: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica,
   Arial, sans-serif;
-$font-icomoon: 'icomoon';
-$font-poppins: 'Poppins', sans-serif;
+$font-icomoon: "icomoon";
+$font-poppins: "Poppins", sans-serif;
 @font-face {
-  font-family: 'Dosis';
-  src: url('../assets/fonts/Dosis-Book.ttf');
+  font-family: "Dosis";
+  src: url("../assets/fonts/Dosis-Book.ttf");
 }
 @font-face {
-  font-family: 'icomoon';
-  src: url('../assets/fonts/icomoon.ttf');
+  font-family: "icomoon";
+  src: url("../assets/fonts/icomoon.ttf");
 }
