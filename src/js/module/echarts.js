@@ -1,6 +1,5 @@
 // 最近7天浏览量
 import { vb } from "./variables";
-import { initialRequest } from "./moduleFunctions";
 import { handleWebsiteData } from "./moduleUpdateView";
 
 var echarts = require("echarts");
