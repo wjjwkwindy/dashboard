@@ -103898,12 +103898,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sass_col_refactor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sass/col-refactor.scss */ "./src/sass/col-refactor.scss");
 /* harmony import */ var _sass_col_refactor_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_sass_col_refactor_scss__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./css/normalize.css */ "./src/css/normalize.css");
-/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_normalize_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
-/* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/module/echarts-theme.js */ "./src/js/module/echarts-theme.js");
-/* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _js_module_echarts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/module/echarts.js */ "./src/js/module/echarts.js");
+/* harmony import */ var _sass_components_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sass/_components.scss */ "./src/sass/_components.scss");
+/* harmony import */ var _sass_components_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sass_components_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./css/normalize.css */ "./src/css/normalize.css");
+/* harmony import */ var _css_normalize_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_css_normalize_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
+/* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/module/echarts-theme.js */ "./src/js/module/echarts-theme.js");
+/* harmony import */ var _js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_module_echarts_theme_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _js_module_echarts_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/module/echarts.js */ "./src/js/module/echarts.js");
+
 
 
 
@@ -104005,7 +104008,31 @@ var usdPriceUrl = butterflyKnife.addUrlParam(_module_variables__WEBPACK_IMPORTED
   }).catch(function (error) {
     console.log("[error]" + error);
   });
-})();
+})(); // 处理点击事件
+
+
+function showList(target) {
+  hideAllList();
+  target.classList.toggle('d-menu-toggle-drop');
+}
+
+function hideAllList() {
+  var lists = document.querySelectorAll('.d-menu__submenu, .d-dropdown__wrapper');
+
+  for (var i = 0; i < lists.length; i++) {
+    lists[i].parentNode.classList.remove('d-menu-toggle-drop');
+  }
+}
+
+window.addEventListener('click', function (event) {
+  if (event.target.parentNode.dataset.drop != 'true') {
+    hideAllList();
+    console.log('hidden');
+  } else {
+    showList(event.target.parentNode.parentNode);
+    console.log('no-hidden');
+  }
+});
 
 /***/ }),
 
@@ -104504,10 +104531,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./variables */ "./src/js/module/variables.js");
-/* harmony import */ var _moduleFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleFunctions */ "./src/js/module/moduleFunctions.js");
-/* harmony import */ var _moduleUpdateView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moduleUpdateView */ "./src/js/module/moduleUpdateView.js");
+/* harmony import */ var _moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleUpdateView */ "./src/js/module/moduleUpdateView.js");
 // 最近7天浏览量
-
 
 
 
@@ -104601,7 +104626,7 @@ viewByBrowers.setOption(viewByBrowersOption);
 
 (function () {
   butterflyKnife.initialRequest(_variables__WEBPACK_IMPORTED_MODULE_0__["vb"].websiteDataUrl).then(function (res) {
-    Object(_moduleUpdateView__WEBPACK_IMPORTED_MODULE_2__["handleWebsiteData"])(res);
+    Object(_moduleUpdateView__WEBPACK_IMPORTED_MODULE_1__["handleWebsiteData"])(res);
     handleEchartsData(res);
   }).catch(function (error) {
     console.log("[error]" + error);
@@ -104615,153 +104640,6 @@ function handleEchartsData(res) {
   viewIn7Days.setOption(viewIn7DaysOption);
   viewByBrowers.setOption(viewByBrowersOption);
 }
-
-/***/ }),
-
-/***/ "./src/js/module/moduleFunctions.js":
-/*!******************************************!*\
-  !*** ./src/js/module/moduleFunctions.js ***!
-  \******************************************/
-/*! exports provided: addUrlParam, setSessionStorage, getSessionStorage, initialRequest */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addUrlParam", function() { return addUrlParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSessionStorage", function() { return setSessionStorage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSessionStorage", function() { return getSessionStorage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialRequest", function() { return initialRequest; });
- // 获取某个月份总天数
-
-Date.prototype.getMonthDays = function () {
-  var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
-  return d.getDate();
-}; // 获取前一天日期
-
-
-Date.prototype.getDateParam = function (separator) {
-  var separateDate = "";
-  separateDate += this.getFullYear() + separator;
-  separateDate += this.getMonth() + 1 + separator;
-
-  if (this.getDate() < 10) {
-    separateDate += "0" + this.getDate();
-  } else {
-    separateDate += this.getDate();
-  }
-
-  return separateDate;
-}; // 拼接url
-
-
-function addUrlParam(url, name, value) {
-  for (var i = 0; i < name.length; i++) {
-    url += url.indexOf("?") == -1 ? "?" : "&";
-    url += encodeURIComponent(name[i]) + "=" + encodeURIComponent(value[i]);
-  }
-
-  return url;
-} // 存储session字段
-
-
-function setSessionStorage(key, value) {
-  var str = "";
-  sessionStorage.removeItem(key);
-
-  for (var i = 0; i < value.length; i++) {
-    str += value[i] + "&";
-  }
-
-  str = str.slice(0, str.length - 1);
-  sessionStorage.setItem(key, str);
-} // 解析session字段
-
-
-function getSessionStorage(key) {
-  var str = sessionStorage.getItem(key);
-  return str.split("&");
-} // 初始化请求
-
-
-function initialRequest(url) {
-  console.log("[info] " + url);
-  return new Promise(function (resolve, reject) {
-    //reject(new Error('故意的'));
-    var client = new XMLHttpRequest();
-    client.open("GET", url);
-    client.onreadystatechange = handler;
-    client.responseType = "json";
-    client.setRequestHeader("Accept", "application/json");
-    client.send();
-
-    function handler() {
-      if (this.readyState !== 4) {
-        return;
-      }
-
-      if (this.status === 200) {
-        resolve(this.response);
-      } else {
-        reject(new Error(this.statusText));
-      }
-    }
-  });
-} // 初始化天气请求
-// function initialWeatherRequest() {
-//   const weatherUrl = addUrlParam(
-//     weatherUrlBase,
-//     ["city", "key"],
-//     [weatherCity, weatherKey]
-//   );
-//   console.log("[info] " + weatherUrl);
-//   return new Promise((resolve, reject) => {
-//     const now = Date.now();
-//     let client = new XMLHttpRequest();
-//     client.open("GET", weatherUrl);
-//     client.onreadystatechange = handler;
-//     client.responseType = "json";
-//     client.setRequestHeader("Accept", "application/json");
-//     client.send();
-//     function handler() {
-//       if (this.readyState !== 4) {
-//         return;
-//       }
-//       if (this.status === 200) {
-//         resolve(this.response);
-//       } else {
-//         reject(new Error(this.statusText));
-//       }
-//     }
-//   });
-// }
-// 初始化货币走势请求
-// function initialPriceRequest() {
-//   const priceUrl = addUrlParam(
-//     priceUrlBase,
-//     ['CMC_PRO_API_KEY', 'start', 'limit', 'convert'],
-//     [priceKey, priceStart, priceLimit, priceConvert]
-//   );
-//   console.log('[info] ' + priceUrl);
-//   return new Promise((resolve, reject) => {
-//     const now = Date.now();
-//     let client = new XMLHttpRequest();
-//     client.open('GET', priceUrl);
-//     client.onreadystatechange = handler;
-//     client.responseType = 'json';
-//     client.setRequestHeader('Accept', 'application/json');
-//     client.send();
-//     function handler() {
-//       if (this.readyState !== 4) {
-//         return;
-//       }
-//       if (this.status === 200) {
-//         resolve(this.response);
-//       } else {
-//         reject(new Error(this.statusText));
-//       }
-//     }
-//   });
-// }
 
 /***/ }),
 
@@ -105074,6 +104952,17 @@ var vb = {
 
 /***/ }),
 
+/***/ "./src/sass/_components.scss":
+/*!***********************************!*\
+  !*** ./src/sass/_components.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./src/sass/col-refactor.scss":
 /*!************************************!*\
   !*** ./src/sass/col-refactor.scss ***!
@@ -105097,4 +104986,4 @@ var vb = {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.674f.js.map
+//# sourceMappingURL=bundle.695b.js.map
