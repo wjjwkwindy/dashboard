@@ -56,7 +56,9 @@ module.exports = {
             options: {
               limit: 8192, // 小于 8k 的图片自动转成 base64 格式，并且不会存在实体图片
               name: '[name].[ext]',
-              outputPath: 'dist/assets/images/' // 图片打包后存放的目录
+              outputPath: 'dist/assets/images/', // 图片打包后存放的目录
+              publicPath: '../assets/images/',
+              useRelativePaths: true
             }
           }
         ]
