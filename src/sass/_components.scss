@@ -20,8 +20,8 @@
 .m-pr-0 {
   padding: 0 !important;
 }
-.m-dp-block{
-  display:block !important;
+.m-dp-block {
+  display: block !important;
 }
 
 // ▄▄       ▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄   ▄         ▄  ▄            ▄▄▄▄▄▄▄▄▄▄▄
@@ -43,17 +43,17 @@
   list-style: none;
 }
 
-.nav-menu-aside{
-  padding-top:  30px;
+.nav-menu-aside {
+  padding-top: 30px;
 
-  .d-menu__items{
+  .d-menu__items {
     display: block;
 
-    .d-menu__item{
+    .d-menu__item {
       display: block;
       padding: 0;
-      
-      .d-menu__link{
+
+      .d-menu__link {
         width: 100%;
         padding: 10px 20px;
 
@@ -66,13 +66,12 @@
 }
 
 .d-menu-toggle-drop {
-
   .d-menu__submenu {
     display: block;
     animation: d-menu-submenu-fade-in 0.3s ease 1, d-menu-submenu-move-up 0.3s ease-out 1;
   }
 
-  .d-dropdown__wrapper{
+  .d-dropdown__wrapper {
     display: block;
     animation: d-menu-submenu-fade-in 0.3s ease 1, d-menu-submenu-move-up 0.3s ease-out 1;
   }
@@ -157,9 +156,8 @@
   padding: 6px 0;
 }
 
-.d-menu__section{
-
-  .d-menu__section-title{
+.d-menu__section {
+  .d-menu__section-title {
     padding: 20px 0 0 20px;
     margin: 0;
     color: #464b66;
@@ -326,6 +324,54 @@
       border-right: none;
     }
   }
+}
+
+// footer
+.d-footer {
+  padding: 10px 20px;
+  background: #fff;
+}
+
+// line items
+.d-line__items {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  .d-line__item {
+    display: table-cell;
+    vertical-align: middle;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    .d-line__item-text{
+      color: #909091;
+    }
+  }
+}
+
+.d-line__links {
+  list-style: none;
+  display: table;
+  table-layout: fixed;
+  margin: 0;
+  padding: 0;
+
+  .d-line__link {
+    display: table-cell;
+    padding: 0 10px;
+  }
+}
+
+// link
+.d-link{
+  font-weight: 400;
+  color: #4a4c51;
+}
+
+.d-link:hover {
+  text-decoration: none;
+  color: #a593e0;
 }
 
 // ▄▄▄▄▄▄▄▄▄▄   ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄
@@ -507,7 +553,7 @@
   color: $ColorSuccess;
 }
 
-// ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄       ▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄ 
+// ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄       ▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄
 // ▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░▌     ▐░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌
 // ▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌     ▐░▌ ▀▀▀▀█░█▀▀▀▀ ▐░▌░▌   ▐░▐░▌▐░█▀▀▀▀▀▀▀█░▌ ▀▀▀▀█░█▀▀▀▀  ▀▀▀▀█░█▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌     ▐░▌
 // ▐░▌       ▐░▌▐░▌▐░▌    ▐░▌     ▐░▌     ▐░▌▐░▌ ▐░▌▐░▌▐░▌       ▐░▌     ▐░▌          ▐░▌     ▐░▌       ▐░▌▐░▌▐░▌    ▐░▌
@@ -517,7 +563,7 @@
 // ▐░▌       ▐░▌▐░▌    ▐░▌▐░▌     ▐░▌     ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌          ▐░▌     ▐░▌       ▐░▌▐░▌    ▐░▌▐░▌
 // ▐░▌       ▐░▌▐░▌     ▐░▐░▌ ▄▄▄▄█░█▄▄▄▄ ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌      ▄▄▄▄█░█▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌     ▐░▐░▌
 // ▐░▌       ▐░▌▐░▌      ▐░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌
-//  ▀         ▀  ▀        ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀         ▀       ▀       ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀ 
+//  ▀         ▀  ▀        ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀         ▀       ▀       ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀
 @keyframes d-menu-submenu-fade-in {
   from {
     opacity: 0.5;
