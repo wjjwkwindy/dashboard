@@ -109,6 +109,10 @@
   font-family: "icomoon";
   src: url(../assets/fonts/icomoon.ttf); }
 
+@font-face {
+  font-family: 'iconfont';
+  src: url(../assets/fonts/iconfont.ttf); }
+
 .second-area .item-origin .item-origin-items .origin-container h2, .second-area .item-today h2 {
   font-size: 18px;
   font-weight: bold;
@@ -179,43 +183,7 @@ a:hover {
   float: left;
   width: 178px;
   height: 100%;
-  background: #2c2e3e;
-  /*.main-nav {
-    text-align: center;
-
-    ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      color: #c8c8c8;
-
-      li {
-        width: 50px;
-        height: 50px;
-        box-sizing: content-box;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-
-        span {
-          // font-family: $font-icomoon;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          font-size: 17px;
-        }
-      }
-
-      li:hover {
-        color: #716aca;
-      }
-
-      .active {
-        color: #716aca;
-      }
-    }
-  }*/ }
+  background: #2c2e3e; }
 
 .main-panel {
   position: absolute;
@@ -455,6 +423,10 @@ a:hover {
   font-family: "icomoon";
   src: url(../assets/fonts/icomoon.ttf); }
 
+@font-face {
+  font-family: 'iconfont';
+  src: url(../assets/fonts/iconfont.ttf); }
+
 .m-left {
   float: left; }
 
@@ -483,7 +455,7 @@ a:hover {
       padding: 0; }
       .nav-menu-aside .d-menu__items .d-menu__item .d-menu__link {
         width: 100%;
-        padding: 10px 20px; }
+        padding: 10px 20px 10px 0px; }
         .nav-menu-aside .d-menu__items .d-menu__item .d-menu__link .d-menu__link-icon {
           width: 35px; }
 
@@ -501,6 +473,10 @@ a:hover {
   display: table-cell;
   vertical-align: middle;
   padding: 0 20px; }
+  .d-menu__item .active {
+    color: #a593e0 !important; }
+    .d-menu__item .active .d-menu__link-icon-dot {
+      visibility: visible; }
 
 .d-menu__link {
   display: table;
@@ -517,6 +493,13 @@ a:hover {
   vertical-align: middle;
   font-size: 20px;
   width: 30px; }
+
+.d-menu__link-icon-dot {
+  display: table-cell;
+  vertical-align: middle;
+  width: 23px;
+  font-size: 20px;
+  visibility: hidden; }
 
 .d-menu__link-text {
   display: table-cell;
@@ -738,6 +721,14 @@ a:hover {
   color: #fff;
   background-color: #a593e0; }
 
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 19px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale; }
+
 .icomoon {
   font-family: "icomoon"; }
 
@@ -759,36 +750,6 @@ a:hover {
 .icon-caret-down-solid::before {
   content: "\E906"; }
 
-.icon_yiwenkongxin::before {
-  content: "\E905"; }
-
-.icon_zhanghao::before {
-  content: "\E907"; }
-
-.icon_kefu::before {
-  content: "\E908"; }
-
-.icon_xiaoxi::before {
-  content: "\E909"; }
-
-.icon_gongnengdingyi:before {
-  content: "\E90A"; }
-
-.icon_guangbo:before {
-  content: "\E90B"; }
-
-.icon_huowudui:before {
-  content: "\E90C"; }
-
-.icon_fabu:before {
-  content: "\E90D"; }
-
-.icon_jinggao:before {
-  content: "\E90E"; }
-
-.icon_renwujincheng:before {
-  content: "\E90F"; }
-
 .icon_xia {
   font-size: 11px;
   width: 18px;
@@ -797,33 +758,6 @@ a:hover {
 
 .icon_xia:before {
   content: "\E910"; }
-
-.icon-APIshuchu:before {
-  content: "\E911"; }
-
-.icon-guanlianshebei:before {
-  content: "\E912"; }
-
-.icon-liebiao:before {
-  content: "\E913"; }
-
-.icon-liujisuan:before {
-  content: "\E914"; }
-
-.icon-shebeikaifa:before {
-  content: "\E915"; }
-
-.icon-wangguan:before {
-  content: "\E916"; }
-
-.icon-yingjian:before {
-  content: "\E917"; }
-
-.icon-yunduanshangchuan:before {
-  content: "\E918"; }
-
-.icon-yunduanshuaxin:before {
-  content: "\E919"; }
 
 .d--bg-white {
   background-color: #fff !important; }
