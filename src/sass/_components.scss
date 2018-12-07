@@ -55,7 +55,7 @@
 
       .d-menu__link {
         width: 100%;
-        padding: 10px 20px;
+        padding: 10px 20px 10px 0px;
 
         .d-menu__link-icon {
           width: 35px;
@@ -81,6 +81,14 @@
   display: table-cell;
   vertical-align: middle;
   padding: 0 20px;
+
+  .active{
+    color: $ColorLightPurple;
+
+    .d-menu__link-icon-dot{
+      visibility: visible;
+    }
+  }
 }
 
 .d-menu__link {
@@ -100,6 +108,14 @@
   vertical-align: middle;
   font-size: 20px;
   width: 30px;
+}
+
+.d-menu__link-icon-dot{
+  display: table-cell;
+  vertical-align: middle;
+  width: 23px;
+  font-size: 20px;
+  visibility: hidden;
 }
 
 .d-menu__link-text {
@@ -417,6 +433,14 @@
 //  ▄▄▄▄█░█▄▄▄▄ ▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌     ▐░▐░▌
 // ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌
 //  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:19px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .icomoon {
   font-family: $font-icomoon;
 }
@@ -445,46 +469,6 @@
   content: "\e906";
 }
 
-.icon_yiwenkongxin::before {
-  content: "\e905";
-}
-
-.icon_zhanghao::before {
-  content: "\e907";
-}
-
-.icon_kefu::before {
-  content: "\e908";
-}
-
-.icon_xiaoxi::before {
-  content: "\e909";
-}
-
-.icon_gongnengdingyi:before {
-  content: "\e90a";
-}
-
-.icon_guangbo:before {
-  content: "\e90b";
-}
-
-.icon_huowudui:before {
-  content: "\e90c";
-}
-
-.icon_fabu:before {
-  content: "\e90d";
-}
-
-.icon_jinggao:before {
-  content: "\e90e";
-}
-
-.icon_renwujincheng:before {
-  content: "\e90f";
-}
-
 .icon_xia {
   font-size: 11px;
   width: 18px;
@@ -494,34 +478,6 @@
 
 .icon_xia:before {
   content: "\e910";
-}
-
-.icon-APIshuchu:before {
-  content: "\e911";
-}
-.icon-guanlianshebei:before {
-  content: "\e912";
-}
-.icon-liebiao:before {
-  content: "\e913";
-}
-.icon-liujisuan:before {
-  content: "\e914";
-}
-.icon-shebeikaifa:before {
-  content: "\e915";
-}
-.icon-wangguan:before {
-  content: "\e916";
-}
-.icon-yingjian:before {
-  content: "\e917";
-}
-.icon-yunduanshangchuan:before {
-  content: "\e918";
-}
-.icon-yunduanshuaxin:before {
-  content: "\e919";
 }
 
 // ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄            ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄
