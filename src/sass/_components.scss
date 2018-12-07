@@ -156,6 +156,13 @@
   padding: 6px 0;
 }
 
+.d-menu__minimize{
+  position: fixed;
+  bottom: 20px;
+  text-align: center;
+  width: $left-sidebar-width;
+}
+
 .d-menu__section {
   .d-menu__section-title {
     padding: 20px 0 0 20px;

@@ -1,5 +1,5 @@
 @import "base_variables";
-$left-sidebar-width: 178px;
+
 %h2-font {
   font-size: 18px;
   font-weight: bold;
@@ -49,9 +49,16 @@ a:hover {
 
     .nav-brand {
       display: table-cell;
-      width: $left-sidebar-width+1;
+      width: $left-sidebar-width + 1;
       height: 100%;
       background-color: #22253e;
+      text-align: center;
+      vertical-align: middle;
+      
+      .nav-logo{
+        color: #fff;
+        font-size: 20px;
+      }
     }
 
     .nav-menu {
@@ -60,11 +67,11 @@ a:hover {
       background: #fff;
       box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
 
-      .nav-menu-left{
+      .nav-menu-left {
         height: 100%;
       }
 
-      .nav-menu-right{
+      .nav-menu-right {
         height: 100%;
         padding-right: 38px;
       }
@@ -83,6 +90,8 @@ a:hover {
 
 // 左边栏
 .sidebar {
+  position: fixed;
+  float: left;
   width: $left-sidebar-width;
   height: 100%;
   background: #2c2e3e;
@@ -127,7 +136,8 @@ a:hover {
 
 // 主栏
 .main-panel {
-  height: 100%;
+  position: absolute;
+  margin-left: $left-sidebar-width;
   background-color: $bgColor;
   overflow: hidden;
 
