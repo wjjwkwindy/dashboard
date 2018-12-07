@@ -151,7 +151,12 @@ a:hover {
       display: table-cell;
       width: 179px;
       height: 100%;
-      background-color: #22253e; }
+      background-color: #22253e;
+      text-align: center;
+      vertical-align: middle; }
+      .header-container .top-nav .nav-brand .nav-logo {
+        color: #fff;
+        font-size: 20px; }
     .header-container .top-nav .nav-menu {
       display: table-cell;
       height: 100%;
@@ -170,6 +175,8 @@ a:hover {
   padding-top: 69px; }
 
 .sidebar {
+  position: fixed;
+  float: left;
   width: 178px;
   height: 100%;
   background: #2c2e3e;
@@ -211,7 +218,8 @@ a:hover {
   }*/ }
 
 .main-panel {
-  height: 100%;
+  position: absolute;
+  margin-left: 178px;
   background-color: #ebecf2;
   overflow: hidden; }
   .main-panel .panel-container {
@@ -554,6 +562,12 @@ a:hover {
 .d-menu__separator {
   padding: 6px 0; }
 
+.d-menu__minimize {
+  position: fixed;
+  bottom: 20px;
+  text-align: center;
+  width: 178px; }
+
 .d-menu__section .d-menu__section-title {
   padding: 20px 0 0 20px;
   margin: 0;
@@ -677,6 +691,40 @@ a:hover {
       color: #a593e0; }
     .d-dropdown__shortcuts .d-dropdown__shortcutsrow .d-dropdown__shortcut:last-child {
       border-right: none; }
+
+.d-footer {
+  padding: 10px 20px;
+  background: #fff; }
+
+.d-line__items {
+  display: table;
+  table-layout: fixed;
+  width: 100%; }
+  .d-line__items .d-line__item {
+    display: table-cell;
+    vertical-align: middle;
+    padding-top: 15px;
+    padding-bottom: 15px; }
+    .d-line__items .d-line__item .d-line__item-text {
+      color: #909091; }
+
+.d-line__links {
+  list-style: none;
+  display: table;
+  table-layout: fixed;
+  margin: 0;
+  padding: 0; }
+  .d-line__links .d-line__link {
+    display: table-cell;
+    padding: 0 10px; }
+
+.d-link {
+  font-weight: 400;
+  color: #4a4c51; }
+
+.d-link:hover {
+  text-decoration: none;
+  color: #a593e0; }
 
 .d-btn--hollow {
   display: inline-block;
