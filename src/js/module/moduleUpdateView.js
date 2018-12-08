@@ -1,14 +1,7 @@
-import { vb,dataString } from "./variables";
-export {
-  handleWeather,
-  handlePrice,
-  handleUSDPrice,
-  handleWebsiteData,
-  handleNews,
-  handleHistory
-};
+import { vb, dataString } from "./variables";
+export { handleWeather, handlePrice, handleUSDPrice, handleWebsiteData, handleNews, handleHistory };
 
-let butterflyKnife = require('butterfly-knife');
+let butterflyKnife = require("butterfly-knife");
 
 // 页面载入时设置"时间进度"和"日期"
 let date = new Date();
@@ -16,9 +9,7 @@ let date = new Date();
   // 设置时间进度
   const currentYear = date.getFullYear();
   const initialYear = new Date(currentYear, 0, 1);
-  let yearProgress = Math.floor(
-      (((date - initialYear) / (1000 * 60 * 60 * 24)) * 100) / 365
-    ),
+  let yearProgress = Math.floor((((date - initialYear) / (1000 * 60 * 60 * 24)) * 100) / 365),
     monthProgress = Math.floor((date.getDate() / butterflyKnife.getMonthDays()) * 100),
     weekProgress = Math.floor((date.getDay() / 7) * 100);
   dataString.yearProgressElem.innerText = yearProgress + "%";
@@ -31,8 +22,8 @@ let date = new Date();
   // 设置日期
   dataString.date.innerHTML = (() => {
     let today = "";
-    today += butterflyKnife.getSeparatorDate(".",date);
-    today += "<span>" + vb.weekday[date.getDay()] + "</span>";
+    today += butterflyKnife.getSeparatorDate(".", date);
+    today += `<span>${vb.weekday[date.getDay()]}</span>`;
     return today;
   })();
 })();
@@ -84,35 +75,19 @@ function handlePrice(res) {
     switch (priceData[i].symbol) {
       case "BTC":
         //priceBTC=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[0] = [
-          "BTC",
-          priceDataCache.price.toFixed(0),
-          priceDataCache.percent_change_24h
-        ];
+        priceTotal[0] = ["BTC", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
       case "BCH":
         //priceBCH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[1] = [
-          "BCH",
-          priceDataCache.price.toFixed(0),
-          priceDataCache.percent_change_24h
-        ];
+        priceTotal[1] = ["BCH", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
       case "ETH":
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[2] = [
-          "ETH",
-          priceDataCache.price.toFixed(0),
-          priceDataCache.percent_change_24h
-        ];
+        priceTotal[2] = ["ETH", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
       case "LTC":
         //priceETH=[priceDataCache.price.toFixed(2),priceDataCache.percent_change_24h]
-        priceTotal[3] = [
-          "LTC",
-          priceDataCache.price.toFixed(0),
-          priceDataCache.percent_change_24h
-        ];
+        priceTotal[3] = ["LTC", priceDataCache.price.toFixed(0), priceDataCache.percent_change_24h];
         break;
       default:
         break;
@@ -125,9 +100,7 @@ function handlePrice(res) {
         dataString.BTCPrice.innerText = priceTotal[i][1];
         dataString.BTCPercent.innerText = priceTotal[i][2] + "%";
         if (priceTotal[i][2] < 0) {
-          dataString.BTCPercent.previousElementSibling.classList.add(
-            "icon-caret-down-solid"
-          );
+          dataString.BTCPercent.previousElementSibling.classList.add("icon-caret-down-solid");
           dataString.BTCPercent.parentElement.classList.add("d--color-danger");
         } else {
           dataString.BTCPercent.parentElement.classList.add("d--color-success");
@@ -138,9 +111,7 @@ function handlePrice(res) {
         dataString.BCHPrice.innerText = priceTotal[i][1];
         dataString.BCHPercent.innerText = priceTotal[i][2] + "%";
         if (priceTotal[i][2] < 0) {
-          dataString.BCHPercent.previousElementSibling.classList.add(
-            "icon-caret-down-solid"
-          );
+          dataString.BCHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
           dataString.BCHPercent.parentElement.classList.add("d--color-danger");
         } else {
           dataString.BCHPercent.parentElement.classList.add("d--color-success");
@@ -151,9 +122,7 @@ function handlePrice(res) {
         dataString.ETHPrice.innerText = priceTotal[i][1];
         dataString.ETHPercent.innerText = priceTotal[i][2] + "%";
         if (priceTotal[i][2] < 0) {
-          dataString.ETHPercent.previousElementSibling.classList.add(
-            "icon-caret-down-solid"
-          );
+          dataString.ETHPercent.previousElementSibling.classList.add("icon-caret-down-solid");
           dataString.ETHPercent.parentElement.classList.add("d--color-danger");
         } else {
           dataString.ETHPercent.parentElement.classList.add("d--color-success");
@@ -183,9 +152,7 @@ function handleUSDPrice(res) {
   let usdPriceToday = res.USD_CNY[vb.usdPriceEndDate];
   let usdPricePercent = (usdPriceToday - usdPriceYesterday) / usdPriceToday;
   if (usdPricePercent < 0) {
-    dataString.USDPercent.previousElementSibling.classList.add(
-      "icon-caret-down-solid"
-    );
+    dataString.USDPercent.previousElementSibling.classList.add("icon-caret-down-solid");
     dataString.USDPercent.parentElement.classList.add("d--color-danger");
   } else {
     dataString.USDPercent.parentElement.classList.add("d--color-success");
@@ -197,9 +164,9 @@ function handleUSDPrice(res) {
 // 处理现在用户数和浏览最多的页面
 function handleWebsiteData(res) {
   let websiteData = res.data[0];
-  let mostViewPageElem= "";
+  let mostViewPageElem = "";
   for (let i = 0; i < 3; i++) {
-    mostViewPageElem += '<p class="m-weight1__item">'+websiteData.mostViewPage[i]+'</p>';
+    mostViewPageElem += `<p class="m-weight1__item">${websiteData.mostViewPage[i]}</p>`;
   }
   dataString.userRightNow.innerText = websiteData.userRightNow;
   dataString.mostViewPage.innerHTML = mostViewPageElem;
@@ -211,14 +178,9 @@ function handleNews(res) {
   let newsElem = "";
   // 只显示7条新闻
   for (let i = 0; i < 7; i++) {
-    newsElem +=
-      '<a class="m-weight1__item" target="_blank"  href="' +
-      news[i].link +
-      '">' +
-      (i + 1) +
-      ". " +
-      news[i].title +
-      "</a>";
+    newsElem += `<a class="m-weight1__item" target="_blank"  href="${news[i].link}">${i + 1}${". "}${
+      news[i].title
+    }</a>`;
   }
   dataString.newsContainer.innerHTML = newsElem;
 }
@@ -228,12 +190,7 @@ function handleHistory(res) {
   let history = res.data;
   let historyElem = "";
   for (let i = 0; i < history.length; i++) {
-    historyElem +=
-      '<p class="m-weight1__item">' +
-      history[i].year +
-      " " +
-      history[i].title +
-      "</p>";
+    historyElem += `<p class="m-weight1__item">${history[i].year} ${history[i].title}</p>`;
     if (i == 5) break;
   }
   dataString.historyContainer.innerHTML = historyElem;
