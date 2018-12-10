@@ -5,12 +5,13 @@ const vb = {
     weatherUrlBase: "https://free-api.heweather.com/v5/weather",
     weatherKey: "987bc68871c94142ae815b39a1081e63",
     weatherCity: "chengdu",
-    priceUrlBase:
-      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
-    priceKey: "297fbec3-e209-40f1-9efa-1a067af4e3fe",
-    priceStart: 1,
-    priceLimit: 7,
-    priceConvert: "CNY",
+    // priceUrlBase:
+    //   "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+    // priceKey: "297fbec3-e209-40f1-9efa-1a067af4e3fe",
+    // priceStart: 1,
+    // priceLimit: 7,
+    // priceConvert: "CNY",
+    priceUrlBase:"https://easy-mock.com/mock/5c022c886574b14de00eb66d/dashboard/coin",
     usdPriceUrlBase:
       "https://free.currencyconverterapi.com/api/v6/convert?q=USD_CNY&compact=ultra",
     usdPriceStartDate: butterflyKnife.getSeparatorDate("-", new Date(Date.now() - 86400000)),

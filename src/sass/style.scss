@@ -46,7 +46,7 @@ a:hover {
     display: table;
     table-layout: fixed;
     z-index: 1000;
-
+    
     .nav-brand {
       display: table-cell;
       width: $left-sidebar-width + 1;
@@ -54,8 +54,9 @@ a:hover {
       background-color: #22253e;
       text-align: center;
       vertical-align: middle;
-      
-      .nav-logo{
+      transition: width .5s ease;
+
+      .nav-logo {
         color: #fff;
         font-size: 20px;
       }
@@ -95,6 +96,39 @@ a:hover {
   width: $left-sidebar-width;
   height: 100%;
   background: #2c2e3e;
+  transition: width .5s ease;
+}
+
+// mini左边栏
+.mini {
+  .nav-brand{
+    width: $left-sidebar-width-mini !important;
+  }
+
+  .sidebar {
+    width: $left-sidebar-width-mini;
+
+    .d-menu__link {
+      padding: 10px !important;
+
+      .d-menu__link-text {
+        display: none;
+      }
+    }
+    .d-menu__section {
+      text-align: center;
+
+      .d-menu__section-title {
+        padding: 10px 0;
+      }
+    }
+    .d-menu__minimize {
+      width: $left-sidebar-width-mini;
+    }
+  }
+  .main-panel {
+    margin-left: $left-sidebar-width-mini;
+  }
 }
 
 // 主栏
@@ -103,6 +137,7 @@ a:hover {
   margin-left: $left-sidebar-width;
   background-color: $bgColor;
   overflow: hidden;
+  transition: margin-left .5s ease;
 
   .panel-container {
     padding: 30px;

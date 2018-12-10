@@ -1,22 +1,13 @@
-import {
-  handleWeather,
-  handlePrice,
-  handleUSDPrice,
-  handleNews,
-  handleHistory,
-} from "./module/moduleUpdateView";
+import { handleWeather, handlePrice, handleUSDPrice, handleNews, handleHistory } from "./module/moduleUpdateView";
 import { vb } from "./module/variables";
 
-let butterflyKnife = require('butterfly-knife');
+let butterflyKnife = require("butterfly-knife");
 
 // 处理天气请求
 let starWeatherRequest = function() {
-  const weatherUrl = butterflyKnife.addUrlParam(
-    vb.weatherUrlBase,
-    ["city", "key"],
-    [vb.weatherCity, vb.weatherKey]
-  );
-  butterflyKnife.initialRequest(weatherUrl)
+  const weatherUrl = butterflyKnife.addUrlParam(vb.weatherUrlBase, ["city", "key"], [vb.weatherCity, vb.weatherKey]);
+  butterflyKnife
+    .initialRequest(weatherUrl)
     .then(res => {
       console.log("[info] Get weather information succeed.");
       sessionStorage.setItem("requestTime", Date.now());
@@ -53,12 +44,13 @@ if (lastRequestTime) {
 
 // 获取货币走势
 (() => {
-  const priceUrl = butterflyKnife.addUrlParam(
-    vb.priceUrlBase,
-    ["CMC_PRO_API_KEY", "start", "limit", "convert"],
-    [vb.priceKey, vb.priceStart, vb.priceLimit, vb.priceConvert]
-  );
-  butterflyKnife.initialRequest(priceUrl)
+  // const priceUrl = butterflyKnife.addUrlParam(
+  //   vb.priceUrlBase,
+  //   ["CMC_PRO_API_KEY", "start", "limit", "convert"],
+  //   [vb.priceKey, vb.priceStart, vb.priceLimit, vb.priceConvert]
+  // );
+  butterflyKnife
+    .initialRequest(vb.priceUrlBase)
     .then(res => {
       handlePrice(res);
     })
@@ -74,7 +66,8 @@ let usdPriceUrl = butterflyKnife.addUrlParam(
   [vb.usdPriceStartDate, vb.usdPriceEndDate]
 );
 (() => {
-  butterflyKnife.initialRequest(usdPriceUrl)
+  butterflyKnife
+    .initialRequest(usdPriceUrl)
     .then(res => {
       handleUSDPrice(res);
       // console.log(res);
@@ -86,7 +79,8 @@ let usdPriceUrl = butterflyKnife.addUrlParam(
 
 // 获取新闻
 (() => {
-  butterflyKnife.initialRequest(vb.newsUrl)
+  butterflyKnife
+    .initialRequest(vb.newsUrl)
     .then(res => {
       handleNews(res);
     })
@@ -97,7 +91,8 @@ let usdPriceUrl = butterflyKnife.addUrlParam(
 
 // 获取历史上的今天
 (() => {
-  butterflyKnife.initialRequest(vb.todayInHistoryUrl)
+  butterflyKnife
+    .initialRequest(vb.todayInHistoryUrl)
     .then(res => {
       handleHistory(res);
     })
@@ -107,24 +102,29 @@ let usdPriceUrl = butterflyKnife.addUrlParam(
 })();
 
 // 处理点击事件
-function showList(target){
+function showList(target) {
   hideAllList();
-  target.classList.toggle('d-menu-toggle-drop');
+  target.classList.toggle("d-menu-toggle-drop");
 }
 
 function hideAllList() {
-  let lists = document.querySelectorAll('.d-menu__submenu, .d-dropdown__wrapper');
+  let lists = document.querySelectorAll(".d-menu__submenu, .d-dropdown__wrapper");
   for (let i = 0; i < lists.length; i++) {
-    lists[i].parentNode.classList.remove('d-menu-toggle-drop');
+    lists[i].parentNode.classList.remove("d-menu-toggle-drop");
   }
 }
 
-window.addEventListener('click',(event)=>{
-  if(event.target.parentNode.dataset.drop!='true'){
+window.addEventListener("click", event => {
+  if (event.target.parentNode.dataset.drop != "true") {
     hideAllList();
-    console.log('hidden');
-  }else{
+    console.log("hidden");
+  } else {
     showList(event.target.parentNode.parentNode);
-    console.log('no-hidden');
+    console.log("no-hidden");
   }
+});
+
+document.getElementById('toggle-minimize').addEventListener('click',()=>{
+  document.getElementsByClassName('wrapper')[0].classList.toggle('mini');
+  document.getElementsByClassName('top-nav')[0].classList.toggle('mini');
 })
